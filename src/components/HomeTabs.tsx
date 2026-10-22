@@ -143,11 +143,11 @@ export default function HomeTabs() {
               onClick={() => setActiveTab(tabKey)}
               className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm transition-all border duration-200 ${
                 isActive
-                  ? 'bg-[#2872fa] border-[#2872fa] text-white shadow-lg shadow-[#2872fa]/20'
-                  : 'bg-white border-[#e2e8f0] text-[#243b56] hover:bg-slate-50'
+                  ? 'bg-[#00BF30] border-[#00BF30] text-white shadow-lg shadow-[#00BF30]/20'
+                  : 'bg-white border-[#E2EAE3] text-[#15231A] hover:bg-[#F8FAF8]'
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#2872fa]'}`} />
+              <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#008020]'}`} />
               {tab.title}
             </button>
           );
@@ -155,26 +155,26 @@ export default function HomeTabs() {
       </div>
 
       {/* Conteúdo da Aba Ativa */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-[#e2e8f0] rounded-3xl p-8 shadow-sm">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-[#E2EAE3] rounded-3xl p-8 shadow-sm">
         {/* Descrição */}
         <div className="lg:col-span-6 space-y-6 text-left">
-          <span className="text-[#2872fa] text-xs font-bold uppercase tracking-wider bg-[#2872fa]/10 px-3 py-1.5 rounded-full">
+          <span className="text-[#008020] text-xs font-bold uppercase tracking-wider bg-[#F0FAF2] border border-[#00E63A]/40 px-3 py-1.5 rounded-full">
             {tabs[activeTab].subtitle}
           </span>
-          <h3 className="text-2xl md:text-3xl font-bold text-[#243b56]">
+          <h3 className="text-2xl md:text-3xl font-extrabold text-[#004010]">
             Inteligência cadastral de ponta para sua empresa
           </h3>
-          <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+          <p className="text-[#647067] text-sm md:text-base leading-relaxed">
             {tabs[activeTab].description}
           </p>
 
           <div className="space-y-3">
             {tabs[activeTab].benefits.map((benefit, i) => (
               <div key={i} className="flex items-start gap-3">
-                <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center mt-0.5 flex-shrink-0">
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="w-5 h-5 rounded-full bg-[#F0FAF2] border border-[#00BF30]/30 flex items-center justify-center mt-0.5 flex-shrink-0">
+                  <Check className="w-3.5 h-3.5 text-[#00BF30]" />
                 </div>
-                <span className="text-slate-700 text-sm font-medium">{benefit}</span>
+                <span className="text-[#15231A] text-sm font-medium">{benefit}</span>
               </div>
             ))}
           </div>
@@ -190,12 +190,12 @@ export default function HomeTabs() {
                 <span className="w-3 h-3 rounded-full bg-amber-500" />
                 <span className="w-3 h-3 rounded-full bg-emerald-500" />
               </div>
-              <span className="text-xs text-slate-500 font-medium">detetive_buscas_api_v3.json</span>
+              <span className="text-xs text-slate-500 font-medium">puxardados_api_v3.json</span>
             </div>
 
             {/* Conteúdo do Mockup */}
             <div className="p-6 space-y-4">
-              <div className="text-indigo-400 text-xs font-semibold tracking-wider uppercase mb-2">
+              <div className="text-[#00E63A] text-xs font-semibold tracking-wider uppercase mb-2">
                 // {tabs[activeTab].mockupTitle}
               </div>
               <div className="space-y-2.5 text-xs text-slate-300">

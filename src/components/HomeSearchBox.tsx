@@ -153,7 +153,7 @@ export default function HomeSearchBox() {
             }}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all capitalize ${
               type === t
-                ? 'bg-[#2872fa] text-white shadow-sm'
+                ? 'bg-[#00BF30] text-white shadow-sm'
                 : 'text-slate-500 hover:text-slate-700'
             }`}
           >
@@ -176,12 +176,12 @@ export default function HomeSearchBox() {
                   ? 'Digite a Placa (Ex: ABC1D23)'
                   : 'Digite o Telefone com DDD (Ex: 11 99999-9999)'
               }
-              className="w-full bg-white border border-slate-200 rounded-2xl pl-5 pr-16 py-4 text-slate-900 focus:border-[#2872fa] focus:ring-2 focus:ring-[#2872fa]/10 outline-none transition-all text-sm font-semibold"
+              className="w-full bg-white border border-[#E2EAE3] rounded-2xl pl-5 pr-16 py-4 text-[#15231A] focus:border-[#00BF30] focus:ring-2 focus:ring-[#00BF30]/20 outline-none transition-all text-sm font-semibold"
             />
             <button
               type="submit"
               disabled={!value.trim()}
-              className="absolute right-2 top-2 bottom-2 px-5 bg-[#2872fa] hover:bg-[#1a5ecd] text-white rounded-xl transition-all flex items-center justify-center disabled:opacity-50"
+              className="absolute right-2 top-2 bottom-2 px-5 bg-[#00BF30] hover:bg-[#008020] text-white rounded-xl transition-all flex items-center justify-center disabled:opacity-50"
             >
               <Search className="w-4 h-4" />
             </button>
@@ -194,7 +194,7 @@ export default function HomeSearchBox() {
             </div>
           )}
 
-          <p className="text-[11px] text-slate-400 font-semibold text-center uppercase tracking-wider">
+          <p className="text-[11px] text-[#647067] font-semibold text-center uppercase tracking-wider">
             Digite o dado cadastral acima para testar a busca
           </p>
         </form>
@@ -202,12 +202,12 @@ export default function HomeSearchBox() {
 
       {loading && (
         <div className="py-8 flex flex-col items-center justify-center text-center space-y-4">
-          <Loader2 className="w-10 h-10 text-[#2872fa] animate-spin" />
+          <Loader2 className="w-10 h-10 text-[#00BF30] animate-spin" />
           <div className="space-y-1">
-            <p className="text-sm font-bold text-slate-700">{steps[loadingStep]}</p>
-            <div className="w-48 h-1.5 bg-slate-200 rounded-full overflow-hidden mx-auto">
+            <p className="text-sm font-bold text-[#004010]">{steps[loadingStep]}</p>
+            <div className="w-48 h-1.5 bg-[#E2EAE3] rounded-full overflow-hidden mx-auto">
               <div 
-                className="h-full bg-[#2872fa] transition-all duration-700" 
+                className="h-full bg-[#00BF30] transition-all duration-700" 
                 style={{ width: `${((loadingStep + 1) / steps.length) * 100}%` }}
               ></div>
             </div>
@@ -218,27 +218,27 @@ export default function HomeSearchBox() {
       {showResult && (
         <div className="space-y-6 animate-in fade-in duration-500 text-left">
           {/* Card de sucesso */}
-          <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-100 p-4 rounded-2xl">
-            <CheckCircle2 className="w-6.5 h-6.5 text-emerald-500 shrink-0" />
+          <div className="flex items-center gap-3 bg-[#F0FAF2] border border-[#00BF30]/30 p-4 rounded-2xl">
+            <CheckCircle2 className="w-6.5 h-6.5 text-[#00BF30] shrink-0" />
             <div>
-              <h4 className="text-sm font-bold text-emerald-800">Informações prontas para consulta</h4>
-              <p className="text-xs text-emerald-600 font-medium">
-                Consulta para {type === 'cpf' ? 'o CPF' : type === 'placa' ? 'a Placa' : 'o Telefone'}: <span className="font-mono font-bold text-slate-900">{value}</span>
+              <h4 className="text-sm font-bold text-[#004010]">Informações prontas para consulta</h4>
+              <p className="text-xs text-[#008020] font-medium">
+                Consulta para {type === 'cpf' ? 'o CPF' : type === 'placa' ? 'a Placa' : 'o Telefone'}: <span className="font-mono font-bold text-[#15231A]">{value}</span>
               </p>
             </div>
           </div>
 
           {/* Card informativo e preço */}
-          <div className="bg-white border border-slate-200/60 rounded-2xl p-6 text-center space-y-4 shadow-sm">
-            <p className="text-xs font-semibold text-slate-500 leading-relaxed max-w-sm mx-auto">
+          <div className="bg-white border border-[#E2EAE3] rounded-2xl p-6 text-center space-y-4 shadow-sm">
+            <p className="text-xs font-semibold text-[#647067] leading-relaxed max-w-sm mx-auto">
               Crie sua conta para continuar e acessar as opções de consulta disponíveis.
             </p>
 
-            <div className="border-t border-slate-100 pt-4">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">
+            <div className="border-t border-[#E2EAE3] pt-4">
+              <span className="text-[10px] font-bold text-[#647067] uppercase tracking-widest block mb-1">
                 VALOR DA CONSULTA
               </span>
-              <span className="text-3xl font-black text-slate-900">
+              <span className="text-3xl font-black text-[#004010]">
                 R$ 3,00
               </span>
             </div>
@@ -248,7 +248,7 @@ export default function HomeSearchBox() {
           <div className="space-y-3">
             <Link
               href={`/cadastro?search=${encodeURIComponent(value)}&type=${type}`}
-              className="w-full bg-[#2872fa] hover:bg-[#1a5ecd] text-white font-bold py-4 px-6 rounded-2xl shadow-xl shadow-[#2872fa]/20 flex items-center justify-center gap-2 transition-all text-sm uppercase tracking-wider text-center"
+              className="w-full bg-[#00BF30] hover:bg-[#008020] text-white font-bold py-4 px-6 rounded-2xl shadow-xl shadow-[#00BF30]/20 flex items-center justify-center gap-2 transition-all text-sm uppercase tracking-wider text-center"
             >
               Criar conta e continuar
             </Link>
@@ -257,7 +257,7 @@ export default function HomeSearchBox() {
                 setValue('');
                 setShowResult(false);
               }}
-              className="w-full text-xs text-slate-400 hover:text-slate-600 font-semibold text-center hover:underline"
+              className="w-full text-xs text-[#647067] hover:text-[#008020] font-semibold text-center hover:underline"
             >
               Realizar outra busca de teste
             </button>

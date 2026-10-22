@@ -66,22 +66,22 @@ export default async function Footer({ logoUrl }: FooterProps) {
               {logoUrl ? (
                 <img 
                   src={logoUrl} 
-                  alt="Logo do Detetive Buscas" 
+                  alt="Logo do PuxarDados" 
                   className="h-8 w-auto object-contain" 
                 />
               ) : (
                 <img 
                   src="/logo.webp" 
-                  alt="Logo do Detetive Buscas" 
+                  alt="Logo do PuxarDados" 
                   className="h-8 w-auto object-contain" 
                 />
               )}
-              <span className="text-lg font-bold text-[#243b56] dark:text-white tracking-tight">
-                Detetive<span className="text-[#2872fa]">Buscas</span>
+              <span className="text-lg font-extrabold text-[#004010] dark:text-white tracking-tight">
+                Puxar<span className="text-[#00BF30]">Dados</span>
               </span>
             </Link>
-            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xs">
-              Plataforma profissional de consultas cadastrais.
+            <p className="text-sm text-[#647067] dark:text-slate-400 max-w-xs">
+              Plataforma profissional de consultas cadastrais online com módulos fracionados e pagamento via Pix.
             </p>
           </div>
 
@@ -90,13 +90,13 @@ export default async function Footer({ logoUrl }: FooterProps) {
 
           {/* Coluna Consultas */}
           <div className="space-y-4 col-span-1">
-            <h4 className="text-xs font-bold text-[#243b56] dark:text-white tracking-wider uppercase">
+            <h4 className="text-xs font-bold text-[#004010] dark:text-white tracking-wider uppercase">
               Consultas
             </h4>
             <ul className="space-y-2.5 text-sm">
               {footerLinks.consultas.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="hover:text-[#2872fa] dark:hover:text-primary transition-colors">
+                  <Link href={link.href} className="hover:text-[#00BF30] dark:hover:text-[#00FF41] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -106,13 +106,13 @@ export default async function Footer({ logoUrl }: FooterProps) {
 
           {/* Coluna Empresa */}
           <div className="space-y-4 col-span-1">
-            <h4 className="text-xs font-bold text-[#243b56] dark:text-white tracking-wider uppercase">
+            <h4 className="text-xs font-bold text-[#004010] dark:text-white tracking-wider uppercase">
               Empresa
             </h4>
             <ul className="space-y-2.5 text-sm">
               {footerLinks.empresa.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="hover:text-[#2872fa] dark:hover:text-primary transition-colors">
+                  <Link href={link.href} className="hover:text-[#00BF30] dark:hover:text-[#00FF41] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -122,13 +122,13 @@ export default async function Footer({ logoUrl }: FooterProps) {
 
           {/* Coluna Legal */}
           <div className="space-y-4 col-span-1">
-            <h4 className="text-xs font-bold text-[#243b56] dark:text-white tracking-wider uppercase">
+            <h4 className="text-xs font-bold text-[#004010] dark:text-white tracking-wider uppercase">
               Legal
             </h4>
             <ul className="space-y-2.5 text-sm">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="hover:text-[#2872fa] dark:hover:text-primary transition-colors">
+                  <Link href={link.href} className="hover:text-[#00BF30] dark:hover:text-[#00FF41] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -139,10 +139,10 @@ export default async function Footer({ logoUrl }: FooterProps) {
         </div>
 
         {/* Linha Inferior com Direitos e Status */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-xs text-slate-400 dark:text-slate-500">
-          <p>© 2026 DetetiveBuscas. Todos os direitos reservados.</p>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-xs text-[#647067] dark:text-slate-500">
+          <p>© 2026 PuxarDados. Todos os direitos reservados.</p>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#10b981] inline-block animate-pulse"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#00BF30] inline-block animate-pulse"></span>
             <span>Todos os sistemas operacionais</span>
           </div>
         </div>

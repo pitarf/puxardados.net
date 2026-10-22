@@ -3,77 +3,92 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Cores Premium Light Mode (Clean) */
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  /* Cores Oficiais da Nova Identidade Visual Verde */
+  --verde-principal: #00BF30;
+  --verde-escuro: #008020;
+  --verde-vibrante: #00FF41;
+  --verde-profundo: #004010;
+  --verde-complementar: #00E63A;
+
+  /* Superfícies & Fundos */
+  --background: #FFFFFF;
+  --bg-alternativo: #F8FAF8;
+  --bg-suave: #F0FAF2;
+  --foreground: #15231A;
 
   /* Cores de Card e Popovers */
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #15231A;
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
+  --popover-foreground: #15231A;
 
-  /* Acentos Principais (Azul tecnológico) */
-  --primary: #2872fa;
+  /* Acentos Principais */
+  --primary: #00BF30;
   --primary-foreground: #ffffff;
+  --primary-hover: #008020;
   
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
+  --secondary: #F0FAF2;
+  --secondary-foreground: #004010;
 
   /* Muteds e Bordas */
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
+  --muted: #F8FAF8;
+  --muted-foreground: #647067;
   
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
+  --accent: #F0FAF2;
+  --accent-foreground: #004010;
 
-  --border: #e2e8f0; /* slate-200 */
-  --input: #e2e8f0;
-  --ring: #2872fa;
+  --border: #E2EAE3;
+  --input: #E2EAE3;
+  --ring: #00BF30;
 
   /* Mensagens de Erro/Sucesso */
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --success: #22c55e;
+  --success: #00BF30;
   --success-foreground: #ffffff;
 
   --radius: 0.75rem;
 }
 
 .dark {
-  /* Cores Premium Dark Mode (Fundo muito escuro, quase preto) */
-  --background: #080b11;
-  --foreground: #f8fafc;
+  /* Cores Premium Dark Mode com Acentos Verdes */
+  --verde-principal: #00BF30;
+  --verde-escuro: #008020;
+  --verde-vibrante: #00FF41;
+  --verde-profundo: #004010;
+  --verde-complementar: #00E63A;
 
-  /* Cores de Card e Popovers (Levemente mais claro que o fundo) */
-  --card: #090b12;
-  --card-foreground: #f8fafc;
-  --popover: #090b12;
-  --popover-foreground: #f8fafc;
+  --background: #090e0b;
+  --bg-alternativo: #0d1410;
+  --bg-suave: #111b15;
+  --foreground: #f2f7f4;
 
-  /* Acentos Principais (Azul/Roxo tecnológico) */
-  --primary: #6366f1;
+  --card: #0d1410;
+  --card-foreground: #f2f7f4;
+  --popover: #0d1410;
+  --popover-foreground: #f2f7f4;
+
+  --primary: #00BF30;
   --primary-foreground: #ffffff;
+  --primary-hover: #008020;
   
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
+  --secondary: #14221a;
+  --secondary-foreground: #f2f7f4;
 
-  /* Muteds e Bordas */
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
+  --muted: #14221a;
+  --muted-foreground: #8a998e;
   
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
+  --accent: #14221a;
+  --accent-foreground: #f2f7f4;
 
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #6366f1;
+  --border: #1a2c22;
+  --input: #1a2c22;
+  --ring: #00BF30;
 
-  /* Mensagens de Erro/Sucesso */
   --destructive: #7f1d1d;
   --destructive-foreground: #f8fafc;
-  --success: #14532d;
-  --success-foreground: #f8fafc;
+  --success: #00BF30;
+  --success-foreground: #ffffff;
 }
 
 @theme inline {
@@ -133,12 +148,12 @@
 
 /* Efeito Glassmorphism Premium */
 .glass-panel {
-  @apply bg-card/40 backdrop-blur-md border border-white/10 shadow-xl;
+  @apply bg-card/60 backdrop-blur-md border border-border shadow-xl;
 }
 
-/* Botões modernos com gradiente e hover dinâmico */
+/* Botões modernos com gradiente verde e hover dinâmico */
 .btn-premium {
-  @apply bg-gradient-to-r from-primary to-blue-600 text-primary-foreground font-semibold py-2 px-4 rounded-md shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)] transition-all duration-300 transform hover:-translate-y-0.5;
+  @apply bg-gradient-to-r from-[#00BF30] to-[#008020] text-white font-semibold py-2 px-4 rounded-xl shadow-[0_4px_14px_rgba(0,191,48,0.25)] hover:shadow-[0_6px_20px_rgba(0,191,48,0.4)] transition-all duration-300 transform hover:-translate-y-0.5;
 }
 
 /* Classes de layout utilitárias */
@@ -165,5 +180,55 @@
   animation: progress 2.8s ease-out forwards;
 }
 
- 
+/* ==========================================================================
+   CARROSSEL VERTICAL COM STACKING CARDS (STICKY SCROLL A 60 FPS)
+   ========================================================================== */
+html, body {
+  overflow-x: clip;
+  max-width: 100%;
+  width: 100%;
+}
 
+.services-sticky-header {
+  position: sticky;
+  top: 64px;
+  z-index: 40;
+  background-color: rgba(248, 250, 248, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(226, 234, 227, 0.8);
+}
+
+@media (min-width: 768px) {
+  .services-sticky-header {
+    top: 72px;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.stacking-container {
+  position: relative;
+  padding-bottom: 1.5rem !important;
+}
+
+.stack-card {
+  transform-origin: top center;
+  will-change: transform, filter;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+  margin-bottom: 40px !important;
+}
+
+@media (min-width: 768px) {
+  .stack-card {
+    margin-bottom: 60px !important;
+  }
+}
+
+.stack-card:last-child {
+  margin-bottom: 0 !important;
+}
