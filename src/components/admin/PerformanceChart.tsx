@@ -19,7 +19,7 @@ export default function PerformanceChart({ data }: { data: ChartData[] }) {
       return (
         <div className="bg-white dark:bg-slate-800 p-3 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700">
           <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">{label}</p>
-          <p className={`text-sm font-bold ${activeTab === 'amount' ? 'text-[#00B87C]' : 'text-[#2872fa]'}`}>
+          <p className={`text-sm font-bold ${activeTab === 'amount' ? 'text-[#00BF30]' : 'text-[#008020]'}`}>
             {activeTab === 'amount' ? 'R$ ' : ''}
             {payload[0].value.toFixed(activeTab === 'amount' ? 2 : 0)}
             {activeTab === 'users' ? ' usuários' : ''}
@@ -35,7 +35,7 @@ export default function PerformanceChart({ data }: { data: ChartData[] }) {
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <span className="w-1.5 h-6 bg-[#00B87C] rounded-full mr-1"></span>
+          <span className="w-1.5 h-6 bg-[#00BF30] rounded-full mr-1"></span>
           Relatório de Desempenho
         </h2>
       </div>
@@ -52,7 +52,7 @@ export default function PerformanceChart({ data }: { data: ChartData[] }) {
             onClick={() => setActiveTab('amount')}
             className={`flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium transition-all ${
               activeTab === 'amount'
-                ? 'bg-[#00B87C] text-white shadow-md'
+                ? 'bg-[#00BF30] text-white shadow-md'
                 : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
@@ -63,7 +63,7 @@ export default function PerformanceChart({ data }: { data: ChartData[] }) {
             onClick={() => setActiveTab('users')}
             className={`flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium transition-all ${
               activeTab === 'users'
-                ? 'bg-[#2872fa] text-white shadow-md'
+                ? 'bg-[#008020] text-white shadow-md'
                 : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
@@ -74,7 +74,7 @@ export default function PerformanceChart({ data }: { data: ChartData[] }) {
 
         {/* Legend */}
         <div className="flex items-center gap-2 mb-4">
-          <div className={`w-3 h-3 rounded-full ${activeTab === 'amount' ? 'bg-[#00B87C]' : 'bg-[#2872fa]'}`}></div>
+          <div className={`w-3 h-3 rounded-full ${activeTab === 'amount' ? 'bg-[#00BF30]' : 'bg-[#008020]'}`}></div>
           <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">
             {activeTab === 'amount' ? 'Total em Reais (R$)' : 'Quantidade de Cadastros'}
           </span>
@@ -89,12 +89,12 @@ export default function PerformanceChart({ data }: { data: ChartData[] }) {
             >
               <defs>
                 <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#00B87C" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="#00B87C" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#00BF30" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#00BF30" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#2872fa" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="#2872fa" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#008020" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#008020" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" opacity={0.5} />
@@ -116,10 +116,10 @@ export default function PerformanceChart({ data }: { data: ChartData[] }) {
               <Area 
                 type="monotone" 
                 dataKey={activeTab} 
-                stroke={activeTab === 'amount' ? '#00B87C' : '#2872fa'} 
+                stroke={activeTab === 'amount' ? '#00BF30' : '#008020'} 
                 strokeWidth={3}
                 fill={`url(#color${activeTab === 'amount' ? 'Amount' : 'Users'})`}
-                activeDot={{ r: 6, strokeWidth: 0, fill: activeTab === 'amount' ? '#00B87C' : '#2872fa' }}
+                activeDot={{ r: 6, strokeWidth: 0, fill: activeTab === 'amount' ? '#00BF30' : '#008020' }}
               />
             </AreaChart>
           </ResponsiveContainer>

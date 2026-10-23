@@ -93,7 +93,7 @@ export default function TrafficClient({
             <span className="text-xs text-slate-400 dark:text-gray-400 font-bold uppercase tracking-wider block">Cadastros por Campanhas</span>
             <span className="text-3xl font-black text-slate-900 dark:text-white block">{initialKpis.totalCampaignUsers}</span>
           </div>
-          <div className="p-4 bg-blue-500/10 text-[#2872fa] rounded-2xl">
+          <div className="p-4 bg-[#00BF30]/10 text-[#00BF30] rounded-2xl">
             <Users className="w-6 h-6" />
           </div>
         </div>
@@ -259,7 +259,7 @@ export default function TrafficClient({
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                       user.source === 'orgânico' 
                         ? 'bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-gray-400' 
-                        : 'bg-blue-500/10 text-[#2872fa]'
+                        : 'bg-[#F0FAF2] text-[#008020] border border-[#00BF30]/30'
                     }`}>
                       {user.source}
                     </span>

@@ -400,18 +400,18 @@ export default async function BlogArticleDetailPage({ params }: Props) {
           {/* Header do Artigo */}
           <header className="mb-10 space-y-4">
             {article.category && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/50 text-[#2872fa] text-[10px] font-extrabold uppercase tracking-wide">
-                <Tag className="w-3 h-3" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F0FAF2] border border-[#00BF30]/30 text-[#008020] text-[10px] font-extrabold uppercase tracking-wide">
+                <Tag className="w-3 h-3 text-[#00BF30]" />
                 {article.category.name}
               </span>
             )}
 
             {article.h1 ? (
-              <h1 className="text-3xl md:text-5xl font-extrabold text-[#243b56] tracking-tight leading-tight">
+              <h1 className="text-3xl md:text-5xl font-extrabold text-[#004010] tracking-tight leading-tight">
                 {article.h1}
               </h1>
             ) : (
-              <h1 className="text-3xl md:text-5xl font-extrabold text-[#243b56] tracking-tight leading-tight">
+              <h1 className="text-3xl md:text-5xl font-extrabold text-[#004010] tracking-tight leading-tight">
                 {article.title}
               </h1>
             )}

@@ -67,15 +67,15 @@ export default async function BlogFeedPage() {
 
       {/* ===================== HEADER DO BLOG ===================== */}
       <section className="relative py-16 md:py-24 bg-white overflow-hidden border-b border-slate-200">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50/30 rounded-full blur-[100px] -z-10" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-slate-50 rounded-full blur-[80px] -z-10" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#00BF30]/5 rounded-full blur-[100px] -z-10" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#00E63A]/5 rounded-full blur-[80px] -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/50 text-[#2872fa] text-xs font-bold uppercase tracking-wider">
-            <Tag className="w-3.5 h-3.5" />
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F0FAF2] border border-[#00BF30]/30 text-[#008020] text-xs font-bold uppercase tracking-wider">
+            <Tag className="w-3.5 h-3.5 text-[#00BF30]" />
             Nosso Blog
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-[#243b56] tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-[#004010] tracking-tight">
             Central de Inteligência cadastral
           </h1>
           <p className="text-slate-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">

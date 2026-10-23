@@ -166,7 +166,7 @@ export default async function AdminDashboardPage({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {/* Card 1: Faturamento */}
         <div className="glass-panel p-5 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-card shadow-sm text-left flex flex-col justify-between hover:border-primary/25 transition-all">
-          <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-[#2872fa] flex items-center justify-center mb-4">
+          <div className="w-8 h-8 rounded-lg bg-[#00BF30]/10 text-[#00BF30] flex items-center justify-center mb-4">
             <DollarSign className="w-4 h-4" />
           </div>
           <div>
