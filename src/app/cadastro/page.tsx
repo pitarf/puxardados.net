@@ -44,10 +44,10 @@ function RegisterContent() {
           <Link href="/" className="flex items-center gap-2 mb-6">
             <img 
               src="/logo.webp" 
-              alt="Logo Detetive Buscas" 
+              alt="Logo PuxarDados" 
               className="h-8 w-auto object-contain"
             />
-            <span className="text-2xl font-bold text-slate-900 dark:text-white">Detetive<span className="text-primary">Buscas</span></span>
+            <span className="text-2xl font-bold text-slate-900 dark:text-white">Puxar<span className="text-[#00BF30]">Dados</span></span>
           </Link>
           <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Crie sua conta</h2>
           <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Comece a consultar dados agora mesmo.</p>

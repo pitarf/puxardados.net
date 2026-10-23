@@ -32,9 +32,9 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     const settings = await prisma.systemSetting.findFirst();
 
-    const title = settings?.siteTitle || "Detetive Buscas - Investigação de Dados";
+    const title = settings?.siteTitle || "PuxarDados - Consultas Cadastrais Online";
     const description = settings?.siteDescription || "Plataforma profissional para consultas de CPF, CNPJ, Veículos e muito mais.";
-    const keywords = settings?.siteKeywords || "consultas, cpf, cnpj, veículos, investigação";
+    const keywords = settings?.siteKeywords || "consultas, cpf, cnpj, veículos, telefone, puxardados";
     const faviconUrl = settings?.faviconUrl || "/favicon.ico";
 
     return {
@@ -59,8 +59,8 @@ export async function generateMetadata(): Promise<Metadata> {
   } catch {
     // Fallback caso o banco não esteja acessível ainda
     return {
-      title: "Detetive Buscas - Investigação de Dados",
-      description: "Plataforma profissional para consultas de dados.",
+      title: "PuxarDados - Consultas Cadastrais Online",
+      description: "Plataforma profissional para consultas de dados cadastrais.",
     };
   }
 }

@@ -38,10 +38,10 @@ export function MobileSidebar({ isAdmin, isSeo, role, whatsappLink, logoUrl }: M
             {logoUrl ? (
               <img src={logoUrl} alt="Logo" className="h-7 w-auto object-contain" />
             ) : (
-              <Database className="text-primary w-5 h-5" />
+              <Database className="text-[#00BF30] w-5 h-5" />
             )}
             <span className="text-lg font-bold tracking-tight text-white">
-              Detetive<span className="text-primary">Buscas</span>
+              Puxar<span className="text-[#00BF30]">Dados</span>
             </span>
           </Link>
           <button 

@@ -150,7 +150,7 @@ export default async function Footer({ logoUrl }: FooterProps) {
         {/* Declaração de conformidade de Whitelist (LGPD/B2B obrigatória) */}
         <div className="pt-8 text-center text-[10px] text-slate-400 dark:text-slate-600 max-w-4xl mx-auto leading-relaxed border-t border-slate-100 dark:border-white/5 mt-6 space-y-2">
           <p>
-            A Detetive Buscas é uma plataforma tecnológica de enriquecimento cadastral desenvolvida estritamente para uso corporativo (B2B). Nossos relatórios são estruturados a partir do processamento automatizado de bases públicas oficiais e provedores regulamentados sob a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais - LGPD).
+            O PuxarDados é uma plataforma tecnológica de enriquecimento cadastral desenvolvida estritamente para uso corporativo (B2B). Nossos relatórios são estruturados a partir do processamento automatizado de bases públicas oficiais e provedores regulamentados sob a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais - LGPD).
           </p>
           <p>
             Garantimos o livre exercício dos direitos dos titulares de dados. Caso deseje solicitar o bloqueio ou a restrição da visualização do seu cadastro em nossa ferramenta de busca, utilize o formulário de Opt-out no nosso canal oficial de Proteção de Dados acima.
