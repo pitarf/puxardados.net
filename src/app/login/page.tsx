@@ -1,7 +1,7 @@
 'use client';
 
-import { useActionState, useEffect, Suspense } from 'react';
-import { login, loginWithGoogle } from '@/app/actions/auth';
+import { useActionState, useEffect, useState, Suspense } from 'react';
+import { login, loginWithGoogle, getBranding } from '@/app/actions/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import Link from 'next/link';
@@ -10,8 +10,17 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 
 function LoginContent() {
   const [state, formAction, isPending] = useActionState(login, null);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    getBranding().then((data) => {
+      if (data?.logoUrl) {
+        setLogoUrl(data.logoUrl);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     // Captura erros vindos da URL (ex: redirecionamento do Google OAuth)
@@ -42,11 +51,17 @@ function LoginContent() {
       <div className="glass-panel w-full max-w-md p-8 rounded-2xl">
         <div className="flex flex-col items-center mb-8">
           <Link href="/" className="flex items-center gap-2 mb-6">
-            <img 
-              src="/logo.webp" 
-              alt="Logo PuxarDados" 
-              className="h-8 w-auto object-contain"
-            />
+            {logoUrl ? (
+              <img 
+                src={logoUrl} 
+                alt="Logo PuxarDados" 
+                className="h-9 w-auto max-w-[200px] object-contain"
+              />
+            ) : (
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00BF30] to-[#008020] flex items-center justify-center shadow-md shadow-[#00BF30]/20">
+                <Database className="text-white w-5 h-5" />
+              </div>
+            )}
             <span className="text-2xl font-bold text-slate-900 dark:text-white">Puxar<span className="text-[#00BF30]">Dados</span></span>
           </Link>
           <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Bem-vindo de volta</h2>

@@ -18,6 +18,26 @@ const registerSchema = z.object({
   password: z.string().min(6, { message: 'A senha deve ter no mínimo 6 caracteres.' }),
 });
 
+export async function getBranding() {
+  try {
+    const settings = await prisma.systemSetting.findFirst({
+      select: { logoUrl: true, siteTitle: true, faviconUrl: true }
+    });
+    return {
+      logoUrl: settings?.logoUrl || null,
+      siteTitle: settings?.siteTitle || 'PuxarDados',
+      faviconUrl: settings?.faviconUrl || null
+    };
+  } catch (error) {
+    console.error('Erro ao buscar branding:', error);
+    return {
+      logoUrl: null,
+      siteTitle: 'PuxarDados',
+      faviconUrl: null
+    };
+  }
+}
+
 export async function login(prevState: any, formData: FormData) {
   const data = Object.fromEntries(formData);
   const result = loginSchema.safeParse(data);
