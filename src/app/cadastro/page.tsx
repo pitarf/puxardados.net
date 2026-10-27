@@ -145,6 +145,8 @@ function RegisterContent() {
               <input 
                 type="checkbox" 
                 name="acceptTerms" 
+                id="acceptTerms"
+                value="on"
                 required 
                 checked={acceptedTerms}
                 onChange={(e) => setAcceptedTerms(e.target.checked)}
@@ -159,6 +161,8 @@ function RegisterContent() {
               <input 
                 type="checkbox" 
                 name="acceptPrivacy" 
+                id="acceptPrivacy"
+                value="on"
                 required 
                 checked={acceptedPrivacy}
                 onChange={(e) => setAcceptedPrivacy(e.target.checked)}

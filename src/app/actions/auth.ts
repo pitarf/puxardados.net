@@ -16,8 +16,8 @@ const registerSchema = z.object({
   name: z.string().min(2, { message: 'Nome deve ter no mínimo 2 caracteres.' }),
   email: z.string().email({ message: 'E-mail inválido.' }),
   password: z.string().min(6, { message: 'A senha deve ter no mínimo 6 caracteres.' }),
-  acceptTerms: z.literal('on', { errorMap: () => ({ message: 'Você precisa aceitar os Termos de Uso.' }) }),
-  acceptPrivacy: z.literal('on', { errorMap: () => ({ message: 'Você precisa declarar ciência da Política de Privacidade.' }) }),
+  acceptTerms: z.any().optional(),
+  acceptPrivacy: z.any().optional(),
 });
 
 export async function getBranding() {
@@ -72,6 +72,21 @@ export async function login(prevState: any, formData: FormData) {
 }
 
 export async function register(prevState: any, formData: FormData) {
+  // Validação resiliente dos termos de uso e política de privacidade
+  const acceptTermsVal = formData.get('acceptTerms');
+  const acceptPrivacyVal = formData.get('acceptPrivacy');
+
+  const isTermsAccepted = acceptTermsVal === 'on' || acceptTermsVal === 'true' || acceptTermsVal === true || acceptTermsVal === '1';
+  const isPrivacyAccepted = acceptPrivacyVal === 'on' || acceptPrivacyVal === 'true' || acceptPrivacyVal === true || acceptPrivacyVal === '1';
+
+  if (!isTermsAccepted) {
+    return { error: 'Você precisa aceitar os Termos de Uso.' };
+  }
+
+  if (!isPrivacyAccepted) {
+    return { error: 'Você precisa declarar ciência da Política de Privacidade.' };
+  }
+
   const data = Object.fromEntries(formData);
   const result = registerSchema.safeParse(data);
 
