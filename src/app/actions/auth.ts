@@ -16,6 +16,8 @@ const registerSchema = z.object({
   name: z.string().min(2, { message: 'Nome deve ter no mínimo 2 caracteres.' }),
   email: z.string().email({ message: 'E-mail inválido.' }),
   password: z.string().min(6, { message: 'A senha deve ter no mínimo 6 caracteres.' }),
+  acceptTerms: z.literal('on', { errorMap: () => ({ message: 'Você precisa aceitar os Termos de Uso.' }) }),
+  acceptPrivacy: z.literal('on', { errorMap: () => ({ message: 'Você precisa declarar ciência da Política de Privacidade.' }) }),
 });
 
 export async function getBranding() {

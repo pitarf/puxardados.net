@@ -11,6 +11,8 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 function RegisterContent() {
   const [state, formAction, isPending] = useActionState(register, null);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -144,6 +146,8 @@ function RegisterContent() {
                 type="checkbox" 
                 name="acceptTerms" 
                 required 
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
                 className="mt-0.5 w-4 h-4 rounded border-slate-300 dark:border-white/20 text-primary focus:ring-primary dark:bg-black/40 cursor-pointer"
               />
               <span className="text-xs text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors leading-snug">
@@ -156,6 +160,8 @@ function RegisterContent() {
                 type="checkbox" 
                 name="acceptPrivacy" 
                 required 
+                checked={acceptedPrivacy}
+                onChange={(e) => setAcceptedPrivacy(e.target.checked)}
                 className="mt-0.5 w-4 h-4 rounded border-slate-300 dark:border-white/20 text-primary focus:ring-primary dark:bg-black/40 cursor-pointer"
               />
               <span className="text-xs text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors leading-snug">
@@ -183,7 +189,16 @@ function RegisterContent() {
             </div>
           </div>
 
-          <form action={loginWithGoogle} className="mt-6">
+          <form 
+            action={loginWithGoogle} 
+            className="mt-6"
+            onSubmit={(e) => {
+              if (!acceptedTerms || !acceptedPrivacy) {
+                e.preventDefault();
+                toast.warning('Você precisa aceitar os Termos de Uso e a Política de Privacidade antes de continuar com o Google.');
+              }
+            }}
+          >
             <button
               type="submit"
               className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-gray-900 font-medium py-3 rounded-lg transition-colors shadow-sm cursor-pointer border border-slate-200"
