@@ -36,10 +36,10 @@ export default function PromoModal({ hasSeenPopup, userWhatsapp }: PromoModalPro
   useEffect(() => {
     // Só abre o modal se ele nunca tiver visto o popup E não tiver WhatsApp cadastrado
     if (!hasSeenPopup && !userWhatsapp) {
-      // Pequeno delay para a página carregar
+      // Delay de 2.5s garantindo que o TermsModal seja visto primeiro
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 1500);
+      }, 2500);
       return () => clearTimeout(timer);
     }
   }, [hasSeenPopup, userWhatsapp]);

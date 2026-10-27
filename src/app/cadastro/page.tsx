@@ -111,6 +111,59 @@ function RegisterContent() {
             </div>
           </div>
 
+          {/* Acordeão de Termos de Uso e Responsabilidade */}
+          <div className="pt-2">
+            <details className="group border border-slate-200 dark:border-white/10 rounded-xl bg-slate-50/50 dark:bg-white/[0.02] overflow-hidden transition-all">
+              <summary className="flex items-center justify-between p-3.5 cursor-pointer text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-primary transition-colors select-none">
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                  Termos de Uso e Responsabilidade
+                </span>
+                <span className="text-[11px] text-primary group-open:rotate-180 transition-transform duration-200">
+                  ▼
+                </span>
+              </summary>
+              <div className="p-3.5 pt-0 text-[11px] leading-relaxed text-slate-600 dark:text-slate-400 border-t border-slate-200/60 dark:border-white/5 space-y-2 mt-1">
+                <p>
+                  Antes de criar sua conta, leia e aceite as condições de utilização da plataforma. Os serviços destinam-se exclusivamente a consultas com finalidade legítima e fundamento jurídico adequado.
+                </p>
+                <p>
+                  É proibido utilizar as informações para perseguição, fraude, discriminação, exposição indevida, ameaças ou qualquer atividade ilícita.
+                </p>
+                <p>
+                  O usuário responde por suas condutas e pelo tratamento posterior que realizar, sem prejuízo das responsabilidades legais da operadora.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          {/* Caixas de Aceite Obrigatórias */}
+          <div className="space-y-2.5 pt-1">
+            <label className="flex items-start gap-2.5 cursor-pointer group">
+              <input 
+                type="checkbox" 
+                name="acceptTerms" 
+                required 
+                className="mt-0.5 w-4 h-4 rounded border-slate-300 dark:border-white/20 text-primary focus:ring-primary dark:bg-black/40 cursor-pointer"
+              />
+              <span className="text-xs text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors leading-snug">
+                Li e aceito os Termos de Uso e as regras de utilização responsável.
+              </span>
+            </label>
+
+            <label className="flex items-start gap-2.5 cursor-pointer group">
+              <input 
+                type="checkbox" 
+                name="acceptPrivacy" 
+                required 
+                className="mt-0.5 w-4 h-4 rounded border-slate-300 dark:border-white/20 text-primary focus:ring-primary dark:bg-black/40 cursor-pointer"
+              />
+              <span className="text-xs text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors leading-snug">
+                Declaro ter tomado conhecimento da Política de Privacidade.
+              </span>
+            </label>
+          </div>
+
           <button 
             type="submit" 
             disabled={isPending}
