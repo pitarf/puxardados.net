@@ -15,6 +15,9 @@ interface MobileSidebarProps {
   logoUrl?: string;
 }
 
+/**
+ * Menu Drawer Mobile Atualizado com visual moderno #0A0E17 e botão de fechar elegante
+ */
 export function MobileSidebar({ isAdmin, isSeo, role, whatsappLink, logoUrl }: MobileSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -25,45 +28,59 @@ export function MobileSidebar({ isAdmin, isSeo, role, whatsappLink, logoUrl }: M
 
   const drawerContent = isOpen ? (
     <div className="fixed inset-0 z-[100] flex">
-      {/* Overlay Escuro */}
+      {/* Overlay com Blur Suave */}
       <div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"
+        className="fixed inset-0 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200"
         onClick={() => setIsOpen(false)}
       />
 
-      {/* Drawer Conteúdo */}
-      <div className="relative w-72 h-full bg-[#0f172a] shadow-2xl animate-in slide-in-from-left duration-300 flex flex-col">
+      {/* Drawer */}
+      <div className="relative w-80 max-w-[85vw] h-full bg-[#0A0E17] text-white shadow-2xl animate-in slide-in-from-left duration-250 flex flex-col border-r border-white/10">
+        
+        {/* Cabeçalho do Menu Mobile */}
         <div className="h-20 flex items-center justify-between px-6 border-b border-white/5">
-          <Link href="/dashboard" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
+          <Link href="/dashboard" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
             {logoUrl ? (
-              <img src={logoUrl} alt="Logo" className="h-7 w-auto object-contain" />
+              <img src={logoUrl} alt="Logo" className="h-8 w-auto object-contain" />
             ) : (
-              <Database className="text-[#00BF30] w-5 h-5" />
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00BF30] to-[#008020] flex items-center justify-center shadow-md shadow-[#00BF30]/20">
+                <Database className="text-white w-4 h-4" />
+              </div>
             )}
-            <span className="text-lg font-bold tracking-tight text-white">
-              Puxar<span className="text-[#00BF30]">Dados</span>
-            </span>
+            <div className="flex flex-col">
+              <span className="text-lg font-bold tracking-tight text-white flex items-center gap-1">
+                Puxar<span className="text-[#00BF30]">Dados</span>
+              </span>
+              <span className="text-[10px] text-emerald-400/80 font-mono">
+                Intelligence Platform
+              </span>
+            </div>
           </Link>
           <button 
             onClick={() => setIsOpen(false)}
-            className="p-1.5 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg"
+            aria-label="Fechar menu"
+            className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
+        {/* Itens do Menu */}
         <div className="flex-1 overflow-y-auto">
-          {/* Quando clica em um link, fecha o menu */}
           <div onClick={() => setIsOpen(false)}>
             <SidebarNav isAdmin={isAdmin} isSeo={isSeo} role={role} whatsappLink={whatsappLink} />
           </div>
         </div>
 
-        <div className="p-4 border-t border-white/5">
+        {/* Rodapé Logout */}
+        <div className="p-4 border-t border-white/5 bg-black/20">
           <form action={logout}>
-            <button type="submit" className="flex w-full items-center gap-3 px-3 py-3 text-sm text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded-lg transition-colors">
+            <button 
+              type="submit" 
+              className="flex w-full items-center justify-center gap-2.5 px-4 py-2.5 text-sm font-semibold text-rose-300 hover:text-white bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 rounded-xl transition-all"
+            >
               <LogOut className="w-4 h-4" />
-              Sair da conta
+              <span>Sair da Conta</span>
             </button>
           </form>
         </div>
@@ -73,15 +90,14 @@ export function MobileSidebar({ isAdmin, isSeo, role, whatsappLink, logoUrl }: M
 
   return (
     <div className="md:hidden">
-      {/* Botão Hambúrguer */}
       <button 
         onClick={() => setIsOpen(true)}
-        className="p-2 text-slate-600 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors"
+        aria-label="Abrir menu"
+        className="p-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 rounded-xl transition-colors flex items-center justify-center border border-slate-200 dark:border-white/10"
       >
-        <Menu className="w-6 h-6" />
+        <Menu className="w-5 h-5" />
       </button>
 
-      {/* Renderiza o Drawer no body se estiver montado */}
       {mounted && createPortal(drawerContent, document.body)}
     </div>
   );

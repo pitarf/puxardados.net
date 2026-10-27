@@ -1,6 +1,16 @@
-# Changelog - Detetive Buscas
+# Changelog - PuxarDados
 
 Todas as mudanças notáveis para este projeto serão documentadas neste arquivo.
+
+## [1.1.0] - 2026-10-26
+### Aprimorado & Redesenhado
+- **Diferenciação Completa do Layout do Dashboard:**
+  - **Sidebar Moderna Categorizada (Stripe / Linear):** Reestruturação total da navegação com seções agrupadas (`Principal`, `Módulos de Consulta`, `Financeiro & Benefícios`, `Minha Conta` e `Administração`), micro-tags contextuais (CPF/Nome, Placa, CNPJ, CNJ) e micro-ícones atualizados.
+  - **Identidade Visual Refinada:** Fundo escuro profundo premium (`#0A0E17`), efeito hover suave com iluminação esmeralda, bordas discretas e indicadores ativos.
+  - **Novo Widget de Saldo Cápsula (`BalanceHeader.tsx`):** Gradiente verde esmeralda com efeito de brilho, ícone de carteira em relevo, botão de recarga imediata e tipografia de alta legibilidade.
+  - **Cartão do Usuário Integrado:** Perfil do usuário no rodapé da Sidebar com iniciais em gradiente, dados do usuário e botão de logout em destaque.
+  - **Aumento de Resiliência de Timeout da DirectData:** Timeout global do Axios e da consulta de processos aumentado de 8s/5s para 18s, permitindo que consultas mais extensas concluam perfeitamente sem falso timeout em horários de pico.
+  - **Atualização do Menu Mobile (`MobileSidebar.tsx`):** Drawer redesenhado com suporte completo às novas categorias e animações fluidas.
 
 ## [1.0.3] - 2026-10-22
 ### Adicionado & Aprimorado
