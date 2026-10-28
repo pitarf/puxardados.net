@@ -1,4 +1,35 @@
-# Roadmap de Desenvolvimento - ConsultaALL (Splits de Entrega)
+# Roadmap de Desenvolvimento - PuxarDados (Splits de Entrega)
+
+## SPLIT 4: Reestruturação Suprema da Homepage - SEO, Mobile First e Conversão (✅ 100% CONCLUÍDO)
+*Este split implementa integralmente os 44 blocos e diretrizes do PROMPT SUPREMO DEFINITIVO.*
+- [x] **Primeira Dobra de Conversão:**
+  - H1 curto (`# Puxar dados e consultar informações online`) e descrição objetiva sem ruídos.
+  - Seletor intuitivo das 5 categorias (CPF, CNPJ, Telefone, Placa e Nome).
+  - Tipografia de inputs em 16px (`text-base`) para bloquear zoom forçado no mobile iOS/Safari.
+- [x] **Motores de Validação Matemática e Estrutural:**
+  - Validador oficial de CPF com Módulo 11.
+  - Validador de CNPJ tradicional e novo CNPJ Alfanumérico da Receita Federal (2026).
+  - Validação estrita de Telefones brasileiros com whitelist oficial de DDDs ativos.
+  - Validador de Placas padrão antigo (ABC-1234) e padrão Mercosul (ABC1D23).
+  - Validador de Nomes completos (mínimo 2 termos alfabéticos).
+- [x] **Área de Retorno Imediato:** Feedback visual posicionado diretamente abaixo do formulário e antes do conteúdo de SEO.
+- [x] **Ferramentas Gratuitas e Educativas:**
+  - Assistente de Consultas (`#assistente-consultas`) para guiar a escolha ideal.
+  - Verificador de Identificadores (`#verificar-dados`) para validação estrutural sem custo ou consulta paga.
+  - Tabela comparativa completa entre identificadores com ID `#comparativo`.
+- [x] **Conteúdo Editorial e Transparência Comercial:**
+  - 27 blocos editoriais semânticos sem promessas falsas de dados restritos.
+  - Tabela de preços dinâmicos (`#precos`) alimentada pelo banco Prisma com valor por consulta.
+- [x] **FAQ Completo de 30 Perguntas:**
+  - 30 itens expansíveis acessíveis (`#faq`) renderizados nativamente no HTML para SEO.
+- [x] **SEO Técnico e Rich Data:**
+  - JSON-LD estruturado Schema.org (`WebSite`, `Organization`, `WebPage`).
+  - Tags Open Graph, Twitter Cards, Canonical URLs absolutas.
+- [x] **Mobile Sticky CTA:**
+  - Botão flutuante mobile discreto com redirecionamento para o topo.
+- [x] **Auditoria e Build:**
+  - Checklists das seções 41 e 42 100% auditados sem pontas soltas.
+  - Build Next.js 16 compilado com sucesso (código 0).
 
 ## SPLIT 1: Fundação, Design e Estrutura Core (✅ CONCLUÍDO)
 *Este split foca na base sólida do sistema e na experiência do usuário.*

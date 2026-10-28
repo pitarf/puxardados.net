@@ -2,6 +2,23 @@
 
 Todas as mudanças notáveis para este projeto serão documentadas neste arquivo.
 
+## [1.2.0] - 2026-10-27
+### Adicionado & Aprimorado (Reestruturação Completa da Homepage - SEO & Conversão Mobile)
+- **Implementação Integral do PROMPT SUPREMO DEFINITIVO (44 Seções):**
+  - **Primeira Dobra Focada em Conversão Máxima:** H1 objetivo (`# Puxar dados e consultar informações online`), seletor intuitivo das 5 categorias (CPF, CNPJ, Telefone, Placa e Nome) com tipografia `text-base` (16px) no mobile para prevenir zoom automático no iOS/WebKit.
+  - **Motor de Validação Matemática e Estrutural (`validators.ts`):** Validação real de CPF (Módulo 11), CNPJ clássico e CNPJ Alfanumérico 2026 da Receita Federal (pesos de 2 a 9 e base ASCII), Telefones com lista de DDDs oficiais válidos do Brasil, Placas antigas (ABC-1234) e padrão Mercosul (ABC1D23), e conferência de Nome Completo.
+  - **Área de Retorno Imediata:** Resposta instantânea da validação posicionada antes de qualquer conteúdo de SEO ou blocos complementares.
+  - **Assistente Interativo de Consultas (`AssistenteConsultas.tsx` / `#assistente-consultas`):** Ferramenta gratuita que guia o visitante até a modalidade ideal com base no dado que ele possui e no objetivo da pesquisa.
+  - **Verificador Estrutural Gratuito (`VerificadorIdentificadores.tsx` / `#verificar-dados`):** Teste de higienização de formato e integridade cadastral sem cobrança e sem execução de consulta paga no backend.
+  - **27 Blocos Editoriais Semânticos (`HomeEditorialBlocks.tsx`):**
+    - Explicações conceituais aprofundadas sobre cruzamento cadastral, histórico e limites da informação.
+    - Tabela comparativa responsiva entre identificadores cadastrais com ID `#comparativo`.
+    - Seção de Preços transparente (`#precos`) com dados reais e atualizados do banco via Prisma.
+  - **FAQ Expansível de 30 Perguntas (`FaqAccordion30.tsx` / `#faq`):** 30 perguntas e respostas completas renderizadas diretamente no HTML para indexação perfeita pelos rastreadores de busca.
+  - **SEO Técnico & Rich Snippets:** Metadados dinâmicos exatos, tags canônicas absolutas, Open Graph completo e Schema.org JSON-LD estruturado (`WebSite`, `Organization`, `WebPage`).
+  - **CTA Flutuante Mobile Inteligente (`MobileStickyCTA.tsx`):** Botão discreto "Fazer Consulta Cadastral" que surge após o scroll e retorna suavemente ao formulário do topo.
+
+
 ## [1.1.0] - 2026-10-26
 ### Aprimorado & Redesenhado
 - **Diferenciação Completa do Layout do Dashboard:**

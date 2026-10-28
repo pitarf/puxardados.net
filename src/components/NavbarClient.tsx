@@ -11,6 +11,12 @@ interface NavbarClientProps {
   menuPages?: Array<{ title: string; slug: string }>;
 }
 
+/**
+ * BLOCO 01 — HEADER (PROMPT_SUPREMO_HOMEPAGE.md Seção 6)
+ * Menu desktop: Consultar Dados, Tipos de Consulta, Como Funciona, Preços, Verificar Dados, FAQ, Blog.
+ * Direita: Entrar, Criar Conta.
+ * Menu mobile: Compacto, sem duas linhas desnecessárias.
+ */
 export default function NavbarClient({ logoUrl, siteTitle, menuPages = [] }: NavbarClientProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,7 +24,7 @@ export default function NavbarClient({ logoUrl, siteTitle, menuPages = [] }: Nav
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
@@ -28,14 +34,10 @@ export default function NavbarClient({ logoUrl, siteTitle, menuPages = [] }: Nav
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
-      
-      // 1. Origem de Tráfego (utm_source ou src)
       const source = params.get('src') || params.get('utm_source');
       if (source) {
         document.cookie = `trafficSource=${encodeURIComponent(source)}; path=/; max-age=2592000; SameSite=Lax`;
       }
-      
-      // 2. Sistema de Indicações (ref)
       const ref = params.get('ref');
       if (ref) {
         document.cookie = `referral=${encodeURIComponent(ref)}; path=/; max-age=2592000; SameSite=Lax`;
@@ -43,7 +45,6 @@ export default function NavbarClient({ logoUrl, siteTitle, menuPages = [] }: Nav
     }
   }, []);
 
-  // Função para retornar o link correto dependendo se o usuário está na Home ou não
   const getHref = (hash: string) => {
     return pathname === '/' ? hash : `/${hash}`;
   };
@@ -53,12 +54,13 @@ export default function NavbarClient({ logoUrl, siteTitle, menuPages = [] }: Nav
       className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? 'bg-[#004010]/95 backdrop-blur-md border-b border-[#008020]/40 shadow-xl py-3 text-white' 
-          : 'bg-white/95 backdrop-blur-md border-b border-[#E2EAE3] py-4 text-[#15231A]'
+          : 'bg-white/95 backdrop-blur-md border-b border-[#E2EAE3] py-3.5 text-[#15231A]'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
+        
+        {/* Logo PuxarDados */}
+        <Link href="/" className="flex items-center gap-2.5 group">
           {logoUrl ? (
             <img 
               src={logoUrl} 
@@ -66,32 +68,40 @@ export default function NavbarClient({ logoUrl, siteTitle, menuPages = [] }: Nav
               className="h-8 w-auto object-contain"
             />
           ) : (
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105 shadow-md ${
-              isScrolled ? 'bg-[#00BF30] text-white shadow-[#00BF30]/30' : 'bg-[#00BF30] text-white shadow-[#00BF30]/20'
+            <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 shadow-md ${
+              isScrolled ? 'bg-[#00BF30] text-white' : 'bg-[#00BF30] text-white'
             }`}>
               <Search className="w-4.5 h-4.5" />
             </div>
           )}
-          <span className={`text-lg font-extrabold tracking-tight transition-colors ${
+          <span className={`text-xl font-black tracking-tight transition-colors ${
             isScrolled ? 'text-white' : 'text-[#004010]'
           }`}>
             Puxar<span className="text-[#00BF30]">Dados</span>
           </span>
         </Link>
 
-        {/* Links de navegação desktop */}
-        <nav className="hidden md:flex items-center gap-8">
+        {/* Menu Desktop Conforme Seção 6 */}
+        <nav className="hidden lg:flex items-center gap-6">
           <Link 
-            href={getHref('#recursos')} 
-            className={`text-sm font-semibold transition-colors ${
+            href={getHref('#consultar-dados')} 
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
               isScrolled ? 'text-emerald-100 hover:text-[#00FF41]' : 'text-[#647067] hover:text-[#008020]'
             }`}
           >
-            Recursos
+            Consultar Dados
+          </Link>
+          <Link 
+            href={getHref('#tipos-de-consulta')} 
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
+              isScrolled ? 'text-emerald-100 hover:text-[#00FF41]' : 'text-[#647067] hover:text-[#008020]'
+            }`}
+          >
+            Tipos de Consulta
           </Link>
           <Link 
             href={getHref('#como-funciona')} 
-            className={`text-sm font-semibold transition-colors ${
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
               isScrolled ? 'text-emerald-100 hover:text-[#00FF41]' : 'text-[#647067] hover:text-[#008020]'
             }`}
           >
@@ -99,23 +109,23 @@ export default function NavbarClient({ logoUrl, siteTitle, menuPages = [] }: Nav
           </Link>
           <Link 
             href={getHref('#precos')} 
-            className={`text-sm font-semibold transition-colors ${
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
               isScrolled ? 'text-emerald-100 hover:text-[#00FF41]' : 'text-[#647067] hover:text-[#008020]'
             }`}
           >
             Preços
           </Link>
           <Link 
-            href={getHref('#aplicacoes')} 
-            className={`text-sm font-semibold transition-colors ${
+            href={getHref('#verificar-dados')} 
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
               isScrolled ? 'text-emerald-100 hover:text-[#00FF41]' : 'text-[#647067] hover:text-[#008020]'
             }`}
           >
-            Aplicações
+            Verificar Dados
           </Link>
           <Link 
             href={getHref('#faq')} 
-            className={`text-sm font-semibold transition-colors ${
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
               isScrolled ? 'text-emerald-100 hover:text-[#00FF41]' : 'text-[#647067] hover:text-[#008020]'
             }`}
           >
@@ -123,135 +133,118 @@ export default function NavbarClient({ logoUrl, siteTitle, menuPages = [] }: Nav
           </Link>
           <Link 
             href="/blog" 
-            className={`text-sm font-bold transition-colors ${
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
               isScrolled ? 'text-emerald-100 hover:text-[#00FF41]' : 'text-[#647067] hover:text-[#008020]'
             }`}
           >
             Blog
           </Link>
-          {menuPages.map((page) => (
-            <Link 
-              key={page.slug} 
-              href={`/${page.slug}`} 
-              className={`text-sm font-semibold transition-colors ${
-                isScrolled ? 'text-emerald-100 hover:text-[#00FF41]' : 'text-[#647067] hover:text-[#008020]'
-              }`}
-            >
-              {page.title.split(' - ')[0]}
-            </Link>
-          ))}
         </nav>
 
-        {/* Ações desktop */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Ações Desktop (Entrar / Criar Conta) */}
+        <div className="hidden md:flex items-center gap-3">
           <Link 
             href="/login" 
-            className={`text-sm font-bold px-4 py-2 rounded-xl transition-colors ${
-              isScrolled 
-                ? 'text-white hover:text-[#00FF41]' 
-                : 'text-[#15231A] hover:text-[#008020]'
+            className={`text-xs font-extrabold uppercase tracking-wider px-3.5 py-2 transition-colors ${
+              isScrolled ? 'text-white hover:text-[#00FF41]' : 'text-[#15231A] hover:text-[#008020]'
             }`}
           >
             Entrar
           </Link>
           <Link 
-            href="/cadastro" 
-            className={`text-sm font-bold px-5 py-2.5 rounded-xl shadow-md transition-all active:scale-95 ${
-              isScrolled
-                ? 'bg-white text-[#004010] hover:bg-emerald-50 shadow-white/10'
-                : 'bg-[#00BF30] hover:bg-[#008020] text-white shadow-[#00BF30]/20'
-            }`}
+            href="/cadastro?src=home-puxardados" 
+            className="text-xs font-extrabold uppercase tracking-wider px-5 py-2.5 rounded-xl bg-[#00BF30] hover:bg-[#008020] text-white shadow-md shadow-[#00BF30]/20 transition-all active:scale-95"
           >
-            Acessar Plataforma
+            Criar Conta
           </Link>
         </div>
 
         {/* Botão Hambúrguer Mobile */}
-        <div className="md:hidden flex items-center">
+        <div className="lg:hidden flex items-center">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`focus:outline-none p-1.5 transition-colors ${
-              isScrolled ? 'text-white hover:text-[#00FF41]' : 'text-[#15231A] hover:text-[#008020]'
+            className={`p-2 transition-colors focus:outline-none ${
+              isScrolled ? 'text-white' : 'text-[#15231A]'
             }`}
-            aria-label="Toggle menu"
+            aria-label="Abrir menu"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+
       </div>
 
-      {/* Menu retrátil mobile */}
+      {/* Menu Retrátil Mobile */}
       <div 
-        className={`md:hidden absolute top-full left-0 w-full bg-white border-b border-[#E2EAE3] shadow-xl overflow-hidden transition-all duration-300 ease-in-out z-50 ${
-          isOpen ? 'max-h-[500px] opacity-100 pointer-events-auto' : 'max-h-0 opacity-0 pointer-events-none'
+        className={`lg:hidden absolute top-full left-0 w-full bg-white border-b border-[#E2EAE3] shadow-2xl overflow-hidden transition-all duration-300 ease-in-out z-50 ${
+          isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
         }`}
       >
-        <div className="px-4 pt-2 pb-6 space-y-3">
+        <div className="px-5 pt-3 pb-6 space-y-3">
           <Link
-            href={getHref('#recursos')}
+            href={getHref('#consultar-dados')}
             onClick={() => setIsOpen(false)}
-            className="block text-base font-semibold text-[#647067] hover:text-[#008020] py-2"
+            className="block text-sm font-bold text-[#15231A] hover:text-[#008020] py-2 border-b border-slate-100"
           >
-            Recursos
+            Consultar Dados
+          </Link>
+          <Link
+            href={getHref('#tipos-de-consulta')}
+            onClick={() => setIsOpen(false)}
+            className="block text-sm font-bold text-[#15231A] hover:text-[#008020] py-2 border-b border-slate-100"
+          >
+            Tipos de Consulta
           </Link>
           <Link
             href={getHref('#como-funciona')}
             onClick={() => setIsOpen(false)}
-            className="block text-base font-semibold text-[#647067] hover:text-[#008020] py-2"
+            className="block text-sm font-bold text-[#15231A] hover:text-[#008020] py-2 border-b border-slate-100"
           >
             Como Funciona
           </Link>
           <Link
             href={getHref('#precos')}
             onClick={() => setIsOpen(false)}
-            className="block text-base font-semibold text-[#647067] hover:text-[#008020] py-2"
+            className="block text-sm font-bold text-[#15231A] hover:text-[#008020] py-2 border-b border-slate-100"
           >
             Preços
           </Link>
           <Link
-            href={getHref('#aplicacoes')}
+            href={getHref('#verificar-dados')}
             onClick={() => setIsOpen(false)}
-            className="block text-base font-semibold text-[#647067] hover:text-[#008020] py-2"
+            className="block text-sm font-bold text-[#15231A] hover:text-[#008020] py-2 border-b border-slate-100"
           >
-            Aplicações
+            Verificar Dados
           </Link>
           <Link
             href={getHref('#faq')}
             onClick={() => setIsOpen(false)}
-            className="block text-base font-semibold text-[#647067] hover:text-[#008020] py-2"
+            className="block text-sm font-bold text-[#15231A] hover:text-[#008020] py-2 border-b border-slate-100"
           >
             FAQ
           </Link>
           <Link
             href="/blog"
             onClick={() => setIsOpen(false)}
-            className="block text-base font-bold text-[#647067] hover:text-[#008020] py-2"
+            className="block text-sm font-bold text-[#15231A] hover:text-[#008020] py-2 border-b border-slate-100"
           >
             Blog
           </Link>
-          {menuPages.map((page) => (
-            <Link
-              key={page.slug}
-              href={`/${page.slug}`}
-              onClick={() => setIsOpen(false)}
-              className="block text-base font-semibold text-[#647067] hover:text-[#008020] py-2"
-            >
-              {page.title.split(' - ')[0]}
-            </Link>
-          ))}
-          
-          <div className="pt-4 border-t border-[#E2EAE3] flex flex-col gap-3">
+
+          <div className="pt-3 flex flex-col gap-2.5">
             <Link
               href="/login"
-              className="text-center font-bold text-[#15231A] hover:text-[#008020] py-2.5 rounded-xl border border-[#E2EAE3] hover:bg-[#F8FAF8] transition-colors"
+              onClick={() => setIsOpen(false)}
+              className="text-center font-bold text-sm text-[#15231A] py-3 rounded-xl border border-[#E2EAE3] hover:bg-slate-50 transition-colors"
             >
               Entrar
             </Link>
             <Link
-              href="/cadastro"
-              className="text-center font-bold text-white bg-[#00BF30] hover:bg-[#008020] py-2.5 rounded-xl shadow-md transition-colors"
+              href="/cadastro?src=home-puxardados"
+              onClick={() => setIsOpen(false)}
+              className="text-center font-bold text-sm text-white bg-[#00BF30] hover:bg-[#008020] py-3 rounded-xl shadow-md transition-colors"
             >
-              Acessar Plataforma
+              Criar Conta
             </Link>
           </div>
         </div>

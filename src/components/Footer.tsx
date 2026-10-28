@@ -1,16 +1,19 @@
+import React from 'react';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
+import { Search } from 'lucide-react';
 
 interface FooterProps {
   logoUrl?: string | null;
 }
 
 /**
- * Componente de Rodapé (Footer) unificado e responsivo para o Detetive Buscas.
- * Exibe logo, links de consultas, informações da empresa, políticas legais e selo de status de sistemas.
+ * BLOCO 27 — FOOTER DEFINITIVO (PROMPT_SUPREMO_HOMEPAGE.md Seção 32)
+ * Marca, 4 Colunas temáticas (Consultas, Plataforma, Conteúdos, Institucional),
+ * texto final e links funcionais rigorosamente auditados.
  */
 export default async function Footer({ logoUrl }: FooterProps) {
-  // Busca dinamicamente no banco as páginas que devem aparecer no rodapé
+  // Busca dinamicamente páginas do banco para links institucionais válidos
   const dbPages = await prisma.page.findMany({
     where: { 
       published: true, 
@@ -24,137 +27,187 @@ export default async function Footer({ logoUrl }: FooterProps) {
     orderBy: { title: 'asc' }
   });
 
-  const legalKeywords = ['termo', 'política', 'privacidade', 'cookies', 'proteção', 'lgpd', 'legal', 'reembolso'];
-  const empresaPages: { label: string, href: string }[] = [];
-  const legalPages: { label: string, href: string }[] = [];
-
-  for (const p of dbPages) {
-    const isLegal = legalKeywords.some(kw => p.title.toLowerCase().includes(kw));
-    if (isLegal) {
-      legalPages.push({ label: p.title, href: `/${p.slug}` });
-    } else {
-      empresaPages.push({ label: p.title, href: `/${p.slug}` });
-    }
-  }
-
-  // Links estáticos padrão do sistema
-  const footerLinks = {
-    consultas: [
-      { label: 'Consulta CPF', href: '/consulta-cpf' },
-      { label: 'Consulta Telefone', href: '/consulta-telefone' },
-      { label: 'Consulta Placa', href: '/consulta-placa' },
-      { label: 'Consulta CNPJ', href: '/consulta-cnpj' },
-      { label: 'Consulta por Nome', href: '/consulta-nome' },
-    ],
-    empresa: [
-      ...empresaPages,
-      { label: 'Blog', href: '/blog' }
-    ],
-    legal: legalPages
-  };
-
   return (
-    <footer className="bg-slate-50 dark:bg-[#080b11] border-t border-slate-200 dark:border-white/5 py-12 sm:py-16 text-slate-500 dark:text-slate-400">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#051109] border-t border-white/10 text-slate-300 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
-        {/* Grid de Links e Logo */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 pb-10 border-b border-slate-200 dark:border-white/5">
+        {/* Grid com Marca e 4 Colunas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           
-          {/* Coluna da Marca */}
-          <div className="col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-3">
+          {/* Marca PuxarDados */}
+          <div className="space-y-4 lg:col-span-1">
+            <Link href="/" className="flex items-center gap-2.5">
               {logoUrl ? (
-                <img 
-                  src={logoUrl} 
-                  alt="Logo do PuxarDados" 
-                  className="h-8 w-auto object-contain" 
-                />
+                <img src={logoUrl} alt="PuxarDados" className="h-8 w-auto object-contain" />
               ) : (
-                <img 
-                  src="/logo.webp" 
-                  alt="Logo do PuxarDados" 
-                  className="h-8 w-auto object-contain" 
-                />
+                <div className="w-8 h-8 rounded-lg bg-[#00BF30] text-white flex items-center justify-center font-bold">
+                  <Search className="w-4.5 h-4.5" />
+                </div>
               )}
-              <span className="text-lg font-extrabold text-[#004010] dark:text-white tracking-tight">
+              <span className="text-xl font-black text-white tracking-tight">
                 Puxar<span className="text-[#00BF30]">Dados</span>
               </span>
             </Link>
-            <p className="text-sm text-[#647067] dark:text-slate-400 max-w-xs">
-              Plataforma profissional de consultas cadastrais online com módulos fracionados e pagamento via Pix.
+            <p className="text-xs text-slate-400 leading-relaxed font-medium">
+              Plataforma independente de consultas cadastrais online com modalidades organizadas por CPF, CNPJ, telefone, placa e nome.
             </p>
           </div>
 
-          {/* Spacer */}
-          <div className="hidden lg:block lg:col-span-1"></div>
-
-          {/* Coluna Consultas */}
-          <div className="space-y-4 col-span-1">
-            <h4 className="text-xs font-bold text-[#004010] dark:text-white tracking-wider uppercase">
+          {/* Coluna 1 — Consultas */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
               Consultas
             </h4>
-            <ul className="space-y-2.5 text-sm">
-              {footerLinks.consultas.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="hover:text-[#00BF30] dark:hover:text-[#00FF41] transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-2 text-xs font-medium">
+              <li>
+                <a href="#consultar-dados" className="hover:text-[#00BF30] transition-colors">
+                  Consulta CPF
+                </a>
+              </li>
+              <li>
+                <a href="#consultar-dados" className="hover:text-[#00BF30] transition-colors">
+                  Consulta CNPJ
+                </a>
+              </li>
+              <li>
+                <a href="#consultar-dados" className="hover:text-[#00BF30] transition-colors">
+                  Consulta telefone
+                </a>
+              </li>
+              <li>
+                <a href="#consultar-dados" className="hover:text-[#00BF30] transition-colors">
+                  Consulta placa
+                </a>
+              </li>
+              <li>
+                <a href="#consultar-dados" className="hover:text-[#00BF30] transition-colors">
+                  Consulta por nome
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Coluna Empresa */}
-          <div className="space-y-4 col-span-1">
-            <h4 className="text-xs font-bold text-[#004010] dark:text-white tracking-wider uppercase">
-              Empresa
+          {/* Coluna 2 — Plataforma */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+              Plataforma
             </h4>
-            <ul className="space-y-2.5 text-sm">
-              {footerLinks.empresa.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="hover:text-[#00BF30] dark:hover:text-[#00FF41] transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-2 text-xs font-medium">
+              <li>
+                <a href="#como-funciona" className="hover:text-[#00BF30] transition-colors">
+                  Como funciona
+                </a>
+              </li>
+              <li>
+                <a href="#tipos-de-consulta" className="hover:text-[#00BF30] transition-colors">
+                  Tipos de consulta
+                </a>
+              </li>
+              <li>
+                <a href="#precos" className="hover:text-[#00BF30] transition-colors">
+                  Preços
+                </a>
+              </li>
+              <li>
+                <a href="#assistente-consultas" className="hover:text-[#00BF30] transition-colors">
+                  Assistente de consultas
+                </a>
+              </li>
+              <li>
+                <a href="#verificar-dados" className="hover:text-[#00BF30] transition-colors">
+                  Verificador de identificadores
+                </a>
+              </li>
+              <li>
+                <a href="#faq" className="hover:text-[#00BF30] transition-colors">
+                  Perguntas frequentes
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Coluna Legal */}
-          <div className="space-y-4 col-span-1">
-            <h4 className="text-xs font-bold text-[#004010] dark:text-white tracking-wider uppercase">
-              Legal
+          {/* Coluna 3 — Conteúdos */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+              Conteúdos
             </h4>
-            <ul className="space-y-2.5 text-sm">
-              {footerLinks.legal.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="hover:text-[#00BF30] dark:hover:text-[#00FF41] transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-2 text-xs font-medium">
+              <li>
+                <Link href="/blog" className="hover:text-[#00BF30] transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <a href="#conteudos" className="hover:text-[#00BF30] transition-colors">
+                  Dados cadastrais
+                </a>
+              </li>
+              <li>
+                <a href="#verificar-dados" className="hover:text-[#00BF30] transition-colors">
+                  Validação de identificadores
+                </a>
+              </li>
+              <li>
+                <a href="#privacidade" className="hover:text-[#00BF30] transition-colors">
+                  Privacidade
+                </a>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-[#00BF30] transition-colors">
+                  Guias informativos
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Coluna 4 — Institucional */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+              Institucional
+            </h4>
+            <ul className="space-y-2 text-xs font-medium">
+              <li>
+                <Link href="/sobre" className="hover:text-[#00BF30] transition-colors">
+                  Sobre o PuxarDados
+                </Link>
+              </li>
+              <li>
+                <Link href="/contato" className="hover:text-[#00BF30] transition-colors">
+                  Contato
+                </Link>
+              </li>
+              <li>
+                <Link href="/politica-de-privacidade" className="hover:text-[#00BF30] transition-colors">
+                  Política de Privacidade
+                </Link>
+              </li>
+              <li>
+                <Link href="/termos" className="hover:text-[#00BF30] transition-colors">
+                  Termos de Uso
+                </Link>
+              </li>
+              <li>
+                <Link href="/protecao-de-dados" className="hover:text-[#00BF30] transition-colors">
+                  Proteção de Dados
+                </Link>
+              </li>
             </ul>
           </div>
 
         </div>
 
-        {/* Linha Inferior com Direitos e Status */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-xs text-[#647067] dark:text-slate-500">
-          <p>© 2026 PuxarDados. Todos os direitos reservados.</p>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00BF30] inline-block animate-pulse"></span>
-            <span>Todos os sistemas operacionais</span>
+        {/* Linha Divisória */}
+        <div className="border-t border-white/10 pt-8 space-y-4 text-center">
+          <p className="text-xs text-slate-400 max-w-4xl mx-auto leading-relaxed">
+            PuxarDados — Plataforma independente de consultas online. A disponibilidade das informações depende da modalidade contratada, dos registros acessíveis e das condições legais aplicáveis.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 pt-2">
+            <p>© {new Date().getFullYear()} PuxarDados. Todos os direitos reservados.</p>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#00BF30] animate-pulse"></span>
+              <span>Central de operações ativa</span>
+            </div>
           </div>
-        </div>
-
-        {/* Declaração de conformidade de Whitelist (LGPD/B2B obrigatória) */}
-        <div className="pt-8 text-center text-[10px] text-slate-400 dark:text-slate-600 max-w-4xl mx-auto leading-relaxed border-t border-slate-100 dark:border-white/5 mt-6 space-y-2">
-          <p>
-            O PuxarDados é uma plataforma tecnológica de enriquecimento cadastral desenvolvida estritamente para uso corporativo (B2B). Nossos relatórios são estruturados a partir do processamento automatizado de bases públicas oficiais e provedores regulamentados sob a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais - LGPD).
-          </p>
-          <p>
-            Garantimos o livre exercício dos direitos dos titulares de dados. Caso deseje solicitar o bloqueio ou a restrição da visualização do seu cadastro em nossa ferramenta de busca, utilize o formulário de Opt-out no nosso canal oficial de Proteção de Dados acima.
-          </p>
         </div>
 
       </div>
