@@ -16,9 +16,13 @@ export default function TermsModal({ userId, onAccept }: TermsModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Verifica no localStorage se o usuário já confirmou a ciência dos termos
-    const storageKey = userId ? `terms_accepted_${userId}` : 'terms_accepted_generic';
-    const accepted = localStorage.getItem(storageKey);
+    // Se ainda não temos userId/identificador, aguarda carregar para não salvar em chave genérica temporária
+    if (!userId) return;
+
+    // Verifica no localStorage se o usuário já confirmou a ciência dos termos (por ID ou genérico prévio)
+    const specificKey = `terms_accepted_${userId}`;
+    const genericKey = 'terms_accepted_generic';
+    const accepted = localStorage.getItem(specificKey) || localStorage.getItem(genericKey);
 
     if (!accepted) {
       setIsOpen(true);
@@ -26,8 +30,15 @@ export default function TermsModal({ userId, onAccept }: TermsModalProps) {
   }, [userId]);
 
   const handleProceed = () => {
-    const storageKey = userId ? `terms_accepted_${userId}` : 'terms_accepted_generic';
-    localStorage.setItem(storageKey, 'true');
+    if (userId) {
+      localStorage.setItem(`terms_accepted_${userId}`, 'true');
+    }
+    // Grava também a chave genérica e cookies como redundância caso o usuário limpe cache específico
+    localStorage.setItem('terms_accepted_generic', 'true');
+    try {
+      document.cookie = `terms_accepted=true; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+    } catch (_) {}
+
     setIsOpen(false);
     if (onAccept) {
       onAccept();
