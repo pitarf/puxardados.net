@@ -53,37 +53,37 @@ export const faqsData: FaqItem[] = [
   {
     id: 9,
     question: "Quanto custa puxar dados?",
-    answer: "O preço depende da modalidade e do módulo escolhido. O valor deve ser apresentado antes da contratação."
+    answer: "O preço varia conforme a categoria e os módulos selecionados. O valor exato é sempre informado com total clareza na tela antes de você confirmar qualquer consulta."
   },
   {
     id: 10,
     question: "A consulta de dados é gratuita?",
-    answer: "A conferência básica do formato de alguns identificadores pode ser gratuita. Módulos cadastrais específicos podem exigir pagamento."
+    answer: "A validação básica e a verificação estrutural de formato são gratuitas no topo da página. Já as consultas detalhadas aos registros cadastrais possuem custos individuais acessíveis a partir de R$ 0,50."
   },
   {
     id: 11,
     question: "Posso pagar por Pix?",
-    answer: "O PuxarDados informa que disponibiliza recarga de saldo por Pix. As condições devem ser confirmadas no painel."
+    answer: "Sim. A plataforma aceita recargas de saldo instantâneas via Pix. Assim que o pagamento é identificado, seus créditos ficam imediatamente disponíveis para realizar consultas."
   },
   {
     id: 12,
     question: "Preciso pagar mensalidade?",
-    answer: "A plataforma informa atualmente que trabalha com contratação por módulos, sem mensalidade obrigatória. Essa condição deverá ser confirmada no sistema."
+    answer: "Não. A plataforma opera no modelo pré-pago sob demanda, sem mensalidades, assinaturas ou cobranças recorrentes. Você recarrega apenas o valor que deseja utilizar."
   },
   {
     id: 13,
     question: "Como funciona uma consulta por módulo?",
-    answer: "Cada módulo corresponde a uma categoria de informação ou serviço, com escopo e preço próprios."
+    answer: "Cada módulo corresponde a um grupo específico de dados (como contatos, veículos ou processos). Você escolhe e paga exclusivamente pelas informações que realmente precisa."
   },
   {
     id: 14,
     question: "Todas as informações estão incluídas em uma única consulta?",
-    answer: "Não necessariamente. Algumas modalidades podem utilizar módulos individuais."
+    answer: "Depende da modalidade escolhida. Você pode optar por consultas pontuais e econômicas ou selecionar múltiplos módulos para obter um relatório completo e unificado."
   },
   {
     id: 15,
     question: "O que acontece quando não há dados encontrados?",
-    answer: "O sistema deverá apresentar o retorno verdadeiro. As regras de cobrança ou restituição seguirão as condições da modalidade contratada."
+    answer: "A plataforma retorna a informação real do registro. Caso não existam dados cadastrados nos repositórios para o documento pesquisado, o sistema reporta o resultado com total transparência."
   },
   {
     id: 16,
@@ -133,32 +133,32 @@ export const faqsData: FaqItem[] = [
   {
     id: 25,
     question: "Preciso criar uma conta?",
-    answer: "As modalidades pagas podem exigir autenticação. As ferramentas gratuitas de orientação e verificação de formato devem funcionar sem cadastro."
+    answer: "Para testar o formato do documento no verificador gratuito, não é necessário cadastro. Para visualizar os relatórios e consultas completas, basta criar sua conta rapidamente."
   },
   {
     id: 26,
     question: "O PuxarDados é um serviço oficial do governo?",
-    answer: "O PuxarDados deve se apresentar como plataforma independente, sem insinuar vínculo institucional inexistente."
+    answer: "Não. O PuxarDados é uma plataforma privada e 100% independente, sem qualquer vínculo direto ou institucional com órgãos governamentais."
   },
   {
     id: 27,
     question: "Posso consultar dados pelo celular?",
-    answer: "A homepage deve funcionar em navegadores móveis, com formulários e componentes adaptados a smartphones."
+    answer: "Sim. Toda a interface da plataforma é otimizada para smartphones e tablets, permitindo pesquisar e visualizar relatórios na tela do seu celular com máxima rapidez e conforto."
   },
   {
     id: 28,
     question: "Como escolher o tipo de consulta?",
-    answer: "Utilize o seletor principal ou o assistente gratuito para identificar a modalidade correspondente ao dado que você possui."
+    answer: "Você pode utilizar o seletor rápido no topo da página ou o nosso Assistente de Consultas logo abaixo para identificar a melhor opção para a informação que você possui."
   },
   {
     id: 29,
     question: "Como os resultados são apresentados?",
-    answer: "As informações retornadas por consultas efetivas devem aparecer no painel correspondente, conforme o serviço e os controles de acesso aplicáveis."
+    answer: "Os resultados são organizados em relatórios visuais limpos, com campos estruturados, badges de status e opções rápidas para visualização ou cópia das informações."
   },
   {
     id: 30,
     question: "Como começar uma consulta agora?",
-    answer: "Selecione CPF, CNPJ, telefone, placa ou nome no formulário principal, informe o identificador e continue para a modalidade desejada."
+    answer: "Basta escolher a categoria desejada no formulário no topo desta página, digitar o identificador e clicar em consultar para iniciar imediatamente."
   }
 ];
 

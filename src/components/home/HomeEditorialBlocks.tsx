@@ -155,7 +155,7 @@ export default function HomeEditorialBlocks({ pricings }: HomeBlocksProps) {
                 </div>
                 <h3 className="text-xl font-bold text-[#004010]">Consulta de dados empresariais por CNPJ</h3>
                 <p className="text-sm text-[#647067] leading-relaxed">
-                  O CNPJ é utilizado para identificar inscrições de empresas e outras entidades. A consulta empresarial pode envolver informações como nome empresarial, situação cadastral, atividade econômica, natureza jurídica e quadro societário, conforme a modalidade. O sistema precisa aceitar o padrão numérico tradicional e o novo padrão alfanumérico.
+                  O CNPJ identifica empresas e entidades no Brasil. Nossa consulta empresarial retorna razão social, nome fantasia, situação cadastral na Receita Federal, atividade econômica principal e secundária, endereço e quadro de sócios. O sistema aceita tanto o formato numérico clássico quanto o novo padrão alfanumérico da Receita.
                 </p>
               </div>
               <a
@@ -412,7 +412,7 @@ export default function HomeEditorialBlocks({ pricings }: HomeBlocksProps) {
                 Uma consulta retorna todas as informações?
               </h3>
               <p className="text-xs text-[#647067] leading-relaxed font-medium">
-                Não necessariamente. Uma modalidade pode trabalhar com módulos específicos. O usuário deverá verificar o conteúdo de cada módulo antes da contratação.
+                Você tem flexibilidade total: pode contratar módulos pontuais para economizar ou gerar um relatório completo com todas as informações reunidas em um único clique.
               </p>
             </div>
           </div>
@@ -706,7 +706,7 @@ export default function HomeEditorialBlocks({ pricings }: HomeBlocksProps) {
 
               <div className="bg-white border border-[#E2EAE3] rounded-2xl p-6 space-y-2">
                 <h3 className="font-bold text-base text-[#004010]">O que são dados pessoais sensíveis?</h3>
-                <p>A LGPD define categorias específicas de dados pessoais sensíveis. A classificação legal não se confunde simplesmente com qualquer informação considerada privada. O sistema não deve tratar ou comercializar dados sensíveis sem fundamento jurídico adequado.</p>
+                <p>A LGPD define dados sensíveis como convicção religiosa, dados biométricos, opiniões políticas e filiação sindical. O PuxarDados prioriza a conformidade legal e não comercializa dados sensíveis protegidos por lei.</p>
               </div>
 
               <div className="bg-white border border-[#E2EAE3] rounded-2xl p-6 space-y-2">
