@@ -162,39 +162,7 @@ export default function HeroSearchSection({ pricings = [] }: HeroSearchSectionPr
       return;
     }
 
-    // Validação estrutural do dado
-    if (category === 'cpf') {
-      const res = validarCPF(inputValue);
-      if (!res.valido) {
-        setValidationError(res.mensagem || 'Confira o CPF informado. A sequência não corresponde a um formato válido.');
-        return;
-      }
-    } else if (category === 'cnpj') {
-      const res = validarCNPJ(inputValue);
-      if (!res.valido) {
-        setValidationError(res.mensagem || 'Revise o CNPJ informado e tente novamente.');
-        return;
-      }
-    } else if (category === 'telefone') {
-      const res = validarTelefone(inputValue);
-      if (!res.valido) {
-        setValidationError(res.mensagem || 'Informe um telefone brasileiro completo com DDD.');
-        return;
-      }
-    } else if (category === 'placa') {
-      const res = validarPlaca(inputValue);
-      if (!res.valido) {
-        setValidationError(res.mensagem || 'Confira os sete caracteres da placa.');
-        return;
-      }
-    } else if (category === 'nome') {
-      const res = validarNome(inputValue);
-      if (!res.valido) {
-        setValidationError(res.mensagem || 'Digite um nome para continuar.');
-        return;
-      }
-    }
-
+    // Não bloqueia por algoritmo matemático: qualquer entrada preenchida dispara a busca e conversão
     setValidationError(null);
     setSearchStage('loading');
   };
