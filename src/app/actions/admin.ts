@@ -497,9 +497,8 @@ export async function getAdvancedMetrics(period: string = 'month', customStart?:
     startOfBr.setUTCHours(0, 0, 0, 0);
     startDate = new Date(startOfBr.getTime() - BR_OFFSET_MS);
   } else if (period === 'month') {
-    const startOfBr = new Date(nowBr);
-    startOfBr.setUTCDate(nowBr.getUTCDate() - 29);
-    startOfBr.setUTCHours(0, 0, 0, 0);
+    // Início do mês atual no fuso horário do Brasil (dia 1 às 00:00:00)
+    const startOfBr = new Date(nowBr.getUTCFullYear(), nowBr.getUTCMonth(), 1, 0, 0, 0, 0);
     startDate = new Date(startOfBr.getTime() - BR_OFFSET_MS);
   } else if (period === 'year') {
     const startOfBr = new Date(nowBr.getUTCFullYear(), 0, 1, 0, 0, 0, 0);
