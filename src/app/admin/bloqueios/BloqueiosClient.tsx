@@ -70,7 +70,7 @@ export default function BloqueiosClient({ initialBlockedList }: { initialBlocked
   return (
     <div className="space-y-8 text-left">
       {/* Form de Adicionar Bloqueio */}
-      <div className="bg-white dark:bg-card border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 shadow-sm">
+      <div className="bg-white dark:bg-card border border-slate-200 dark:border-white/5 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm">
         <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
           <Ban className="w-5 h-5 text-red-500" />
           Bloquear Novo CPF, CNPJ, Placa, Telefone ou Nome
@@ -133,7 +133,7 @@ export default function BloqueiosClient({ initialBlockedList }: { initialBlocked
       </div>
 
       {/* Lista de Bloqueios */}
-      <div className="bg-white dark:bg-card border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 shadow-sm">
+      <div className="bg-white dark:bg-card border border-slate-200 dark:border-white/5 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
@@ -157,8 +157,12 @@ export default function BloqueiosClient({ initialBlockedList }: { initialBlocked
         </div>
 
         {/* Tabela de registros */}
+        <div className="flex items-center justify-between sm:hidden text-[10px] text-slate-400 mb-2">
+          <span>Total: {filteredList.length}</span>
+          <span>Arraste para o lado →</span>
+        </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300">
+          <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300 min-w-[560px]">
             <thead className="text-xs uppercase bg-slate-50 dark:bg-black/20 text-slate-400 dark:text-gray-500 tracking-wider">
               <tr>
                 <th className="px-6 py-4 rounded-l-2xl">Tipo</th>

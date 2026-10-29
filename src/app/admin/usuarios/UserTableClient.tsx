@@ -238,9 +238,9 @@ export default function UserTableClient({ initialUsers }: { initialUsers: any[] 
 
   return (
     <>
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 w-full">
         {/* Barra de pesquisa */}
-        <div className="relative flex-grow max-w-md">
+        <div className="relative flex-grow w-full sm:max-w-md">
           <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
             <Search className="w-4 h-4" />
           </span>
@@ -256,16 +256,22 @@ export default function UserTableClient({ initialUsers }: { initialUsers: any[] 
         {/* Botão de Exportar */}
         <button
           onClick={handleExportCSV}
-          className="flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 rounded-xl transition-all shadow-md hover:shadow-blue-500/10 active:scale-95 cursor-pointer"
+          className="flex items-center justify-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 rounded-xl transition-all shadow-md hover:shadow-blue-500/10 active:scale-95 cursor-pointer shrink-0"
         >
           <Download className="w-4 h-4" />
           Exportar Leads (CSV)
         </button>
       </div>
 
-      <div className="glass-panel rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 bg-white dark:bg-card shadow-sm hover:shadow-md transition-all">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-700 dark:text-gray-300">
+      {/* Indicador de rolagem lateral para mobile */}
+      <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-gray-500 px-1 mb-2">
+        <span>Mostrando {filteredUsers.length} usuários</span>
+        <span className="italic flex items-center gap-1">Deslize a tabela para ver ações →</span>
+      </div>
+
+      <div className="glass-panel rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 bg-white dark:bg-card shadow-sm hover:shadow-md transition-all w-full max-w-full">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left text-sm text-slate-700 dark:text-gray-300 min-w-[720px]">
             <thead className="bg-slate-50 dark:bg-black/40 text-xs uppercase text-slate-500 dark:text-gray-500 font-bold border-b border-slate-200 dark:border-white/5">
               <tr>
                 <th className="px-6 py-4">Usuário</th>
@@ -596,36 +602,36 @@ export default function UserTableClient({ initialUsers }: { initialUsers: any[] 
 
       {/* Modal de Auditoria */}
       {auditOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 rounded-3xl w-full max-w-5xl max-h-[90vh] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
+          <div className="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 rounded-2xl sm:rounded-3xl w-full max-w-5xl max-h-[92vh] sm:max-h-[90vh] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
             {/* Header Audit */}
-            <div className="p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-slate-50 dark:bg-white/5">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-purple-500/20 rounded-2xl text-purple-600 dark:text-purple-400 shadow-xl shadow-purple-500/10">
-                  <History className="w-6 h-6" />
+            <div className="p-4 sm:p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-slate-50 dark:bg-white/5">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                <div className="p-2 sm:p-3 bg-purple-500/20 rounded-xl sm:rounded-2xl text-purple-600 dark:text-purple-400 shadow-xl shadow-purple-500/10 shrink-0">
+                  <History className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Auditoria de Usuário</h3>
-                  <p className="text-sm text-slate-500 dark:text-gray-400">{selectedUser?.email}</p>
+                <div className="min-w-0">
+                  <h3 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight truncate">Auditoria de Usuário</h3>
+                  <p className="text-xs sm:text-sm text-slate-500 dark:text-gray-400 truncate">{selectedUser?.email}</p>
                 </div>
               </div>
               <button 
                 onClick={() => { setAuditOpen(false); setAuditData(null); }}
-                className="p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded-full text-slate-400 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                className="p-1.5 sm:p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded-full text-slate-400 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white transition-colors shrink-0"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
 
             {/* Content Audit */}
-            <div className="flex-1 overflow-y-auto p-8 custom-scrollbar bg-slate-50/50 dark:bg-card/30">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-8 custom-scrollbar bg-slate-50/50 dark:bg-card/30">
               {loading && !auditData ? (
                 <div className="flex flex-col items-center justify-center py-20 text-slate-400 dark:text-gray-500 gap-4">
-                  <Loader2 className="w-10 h-10 animate-spin text-primary" />
-                  <p className="font-medium">Carregando histórico completo...</p>
+                  <Loader2 className="w-8 h-8 sm:w-10 sm:h-10 animate-spin text-primary" />
+                  <p className="font-medium text-xs sm:text-sm">Carregando histórico completo...</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
                   {/* Coluna 1: Consultas */}
                   <div className="space-y-6">
                     <div className="flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest mb-2 px-1">

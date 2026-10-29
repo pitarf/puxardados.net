@@ -273,13 +273,16 @@ export default async function AdminDashboardPage({
       {/* SEÇÃO 3: HISTÓRICO DE ÚLTIMOS DEPÓSITOS E CONSULTAS DO DIA */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12 animate-in fade-in duration-800">
         {/* Últimos Depósitos */}
-        <div className="glass-panel rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-card shadow-sm p-8">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-            <DollarSign className="w-5 h-5 text-emerald-500" />
-            Últimos Depósitos Recebidos
-          </h2>
+        <div className="glass-panel rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-card shadow-sm p-4 sm:p-6 md:p-8">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <DollarSign className="w-5 h-5 text-emerald-500" />
+              Últimos Depósitos Recebidos
+            </h2>
+            <span className="sm:hidden text-[10px] text-slate-400">Arraste →</span>
+          </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300">
+            <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300 min-w-[480px]">
               <thead className="text-xs uppercase bg-slate-50 dark:bg-black/20 text-slate-400 dark:text-gray-500 tracking-wider">
                 <tr>
                   <th className="px-4 py-3 rounded-l-xl">Usuário</th>
@@ -322,8 +325,8 @@ export default async function AdminDashboardPage({
         </div>
 
         {/* Consultas Realizadas Hoje */}
-        <div className="glass-panel rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-card shadow-sm p-8">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+        <div className="glass-panel rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-card shadow-sm p-4 sm:p-6 md:p-8">
+          <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
             <Search className="w-5 h-5 text-primary" />
             Consultas Realizadas Hoje
           </h2>
@@ -360,15 +363,18 @@ export default async function AdminDashboardPage({
       </div>
 
       {/* Tabela de Atribuição por Origem de Tráfego (UTMs) */}
-      <div className="glass-panel rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-card shadow-sm p-8 mt-12 animate-in fade-in duration-1000">
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-          <Globe className="w-5 h-5 text-primary" />
-          Atribuição de Tráfego (Canais & UTMs)
-        </h2>
-        <p className="text-sm text-slate-500 dark:text-gray-400 mb-6">Acompanhe a origem dos cadastros, o faturamento gerado por cada canal e o retorno sobre investimento (ROI).</p>
+      <div className="glass-panel rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-card shadow-sm p-4 sm:p-6 md:p-8 mt-12 animate-in fade-in duration-1000">
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <Globe className="w-5 h-5 text-primary" />
+            Atribuição de Tráfego (Canais & UTMs)
+          </h2>
+          <span className="sm:hidden text-[10px] text-slate-400">Arraste →</span>
+        </div>
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-gray-400 mb-6">Acompanhe a origem dos cadastros, o faturamento gerado por cada canal e o retorno sobre investimento (ROI).</p>
         
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300">
+          <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300 min-w-[580px]">
             <thead className="text-xs uppercase bg-slate-50 dark:bg-black/20 text-slate-400 dark:text-gray-500 tracking-wider">
               <tr>
                 <th className="px-6 py-4 rounded-l-2xl">Canal de Origem</th>

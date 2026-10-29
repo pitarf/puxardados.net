@@ -1,0 +1,25 @@
+{
+  "cookies": [
+    {
+      "name": "session",
+      "value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiZjE5ZTcxOS05ZjUwLTRiYmUtOGMxNS1lMjMwZDdkOWEzNDciLCJpYXQiOjE3OTMyMzkyNjYsImV4cCI6MTc5Mzg0NDA2Nn0.F-0vOZI4MnabnHRXxKS3AY1potlOdV5Ra2DV_XUmAH8",
+      "domain": "puxardados.net",
+      "path": "/",
+      "expires": 1793844066,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "admin_verified",
+      "value": "true",
+      "domain": "puxardados.net",
+      "path": "/admin",
+      "expires": 1793844066,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}

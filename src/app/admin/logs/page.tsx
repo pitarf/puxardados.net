@@ -35,19 +35,19 @@ export default async function AdminLogsPage() {
 
       <div className="space-y-4">
         {logs.map((log) => (
-          <div key={log.id} className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-2xl p-6 hover:border-slate-300 dark:hover:border-white/20 transition-all">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-              <div className="flex items-center gap-3">
-                <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold border ${getLevelStyles(log.level)}`}>
+          <div key={log.id} className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-2xl p-4 sm:p-6 hover:border-slate-300 dark:hover:border-white/20 transition-all">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-4">
+              <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                <div className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full text-[10px] font-bold border ${getLevelStyles(log.level)}`}>
                   {getLevelIcon(log.level)}
                   {log.level}
                 </div>
-                <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-gray-400">
+                <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-gray-400">
                   <Clock className="w-3 h-3" />
                   {new Date(log.createdAt).toLocaleString('pt-BR')}
                 </div>
               </div>
-              <div className="text-[10px] text-slate-400 dark:text-gray-500 font-mono select-all bg-slate-50 dark:bg-white/5 px-2 py-1 rounded border border-slate-200 dark:border-white/5">
+              <div className="text-[10px] text-slate-400 dark:text-gray-500 font-mono select-all bg-slate-50 dark:bg-white/5 px-2 py-1 rounded border border-slate-200 dark:border-white/5 w-fit">
                 ID: {log.id}
               </div>
             </div>

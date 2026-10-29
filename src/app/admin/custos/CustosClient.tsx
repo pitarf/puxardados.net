@@ -109,10 +109,10 @@ export default function CustosClient({ dailyBreakdown, detailedQueries }: Custos
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200 dark:border-white/5">
+      <div className="flex border-b border-slate-200 dark:border-white/5 overflow-x-auto no-scrollbar">
         <button
           onClick={() => setActiveTab('daily')}
-          className={`flex items-center gap-2 px-6 py-3 font-bold text-sm border-b-2 transition-all ${
+          className={`flex items-center gap-2 px-4 sm:px-6 py-3 font-bold text-xs sm:text-sm border-b-2 transition-all whitespace-nowrap ${
             activeTab === 'daily'
               ? 'border-red-500 text-red-500 bg-red-500/5'
               : 'border-transparent text-slate-400 hover:text-slate-200 dark:hover:text-slate-100'
@@ -123,7 +123,7 @@ export default function CustosClient({ dailyBreakdown, detailedQueries }: Custos
         </button>
         <button
           onClick={() => setActiveTab('detailed')}
-          className={`flex items-center gap-2 px-6 py-3 font-bold text-sm border-b-2 transition-all ${
+          className={`flex items-center gap-2 px-4 sm:px-6 py-3 font-bold text-xs sm:text-sm border-b-2 transition-all whitespace-nowrap ${
             activeTab === 'detailed'
               ? 'border-red-500 text-red-500 bg-red-500/5'
               : 'border-transparent text-slate-400 hover:text-slate-200 dark:hover:text-slate-100'
@@ -136,10 +136,13 @@ export default function CustosClient({ dailyBreakdown, detailedQueries }: Custos
 
       {/* Tab: Resumo Diário */}
       {activeTab === 'daily' && (
-        <div className="bg-white dark:bg-card border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Breakdown por Dia</h2>
+        <div className="bg-white dark:bg-card border border-slate-200 dark:border-white/5 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Breakdown por Dia</h2>
+            <span className="sm:hidden text-[10px] text-slate-400">Arraste para o lado →</span>
+          </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300">
+            <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300 min-w-[580px]">
               <thead className="text-xs uppercase bg-slate-50 dark:bg-black/20 text-slate-400 dark:text-gray-500 tracking-wider">
                 <tr>
                   <th className="px-6 py-4 rounded-l-2xl">Data</th>
@@ -193,9 +196,9 @@ export default function CustosClient({ dailyBreakdown, detailedQueries }: Custos
 
       {/* Tab: Histórico Detalhado */}
       {activeTab === 'detailed' && (
-        <div className="bg-white dark:bg-card border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-card border border-slate-200 dark:border-white/5 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm space-y-6">
           {/* Filtros e Busca */}
-          <div className="flex flex-col md:flex-row gap-4 items-end">
+          <div className="flex flex-col md:flex-row gap-3 sm:gap-4 items-stretch md:items-end">
             <div className="flex-1 w-full">
               <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Busca de Termo ou Usuário</label>
               <div className="relative">
@@ -204,9 +207,9 @@ export default function CustosClient({ dailyBreakdown, detailedQueries }: Custos
                   placeholder="Pesquisar por CPF, Nome, Email..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 dark:text-white outline-none focus:border-red-500"
+                  className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-2xl pl-10 pr-4 py-2.5 sm:py-3 text-sm text-slate-800 dark:text-white outline-none focus:border-red-500"
                 />
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3 sm:top-3.5" />
               </div>
             </div>
 
@@ -215,7 +218,7 @@ export default function CustosClient({ dailyBreakdown, detailedQueries }: Custos
               <select
                 value={targetFilter}
                 onChange={(e) => setTargetFilter(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-2xl p-3 text-sm font-semibold text-slate-800 dark:text-white outline-none focus:border-red-500"
+                className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/5 rounded-2xl p-2.5 sm:p-3 text-sm font-semibold text-slate-800 dark:text-white outline-none focus:border-red-500"
               >
                 <option value="ALL">Todos os Canais</option>
                 <option value="CPF">CPF (Pessoa Física Plus)</option>
@@ -229,8 +232,12 @@ export default function CustosClient({ dailyBreakdown, detailedQueries }: Custos
           </div>
 
           {/* Tabela de Histórico */}
+          <div className="flex items-center justify-between sm:hidden text-[10px] text-slate-400">
+            <span>Resultados: {filteredQueries.length}</span>
+            <span>Arraste para o lado →</span>
+          </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300">
+            <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300 min-w-[650px]">
               <thead className="text-xs uppercase bg-slate-50 dark:bg-black/20 text-slate-400 dark:text-gray-500 tracking-wider">
                 <tr>
                   <th className="px-4 py-4 rounded-l-2xl">Usuário</th>

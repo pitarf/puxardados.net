@@ -116,7 +116,7 @@ export default function AdminSettingsPage() {
       <form onSubmit={handleSave} className="space-y-8">
 
         {/* ====== BRANDING VISUAL ====== */}
-        <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-3xl p-8 space-y-6">
+        <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 space-y-6">
           <div className="flex items-center gap-3 border-b border-slate-100 dark:border-white/5 pb-4 mb-6">
             <div className="p-2 bg-blue-500/20 rounded-lg text-blue-600 dark:text-blue-400">
               <Image className="w-5 h-5" />
@@ -217,7 +217,7 @@ export default function AdminSettingsPage() {
         </section>
 
         {/* ====== SEO & IDENTIDADE ====== */}
-        <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-3xl p-8 space-y-6">
+        <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 space-y-6">
           <div className="flex items-center gap-3 border-b border-slate-100 dark:border-white/5 pb-4 mb-6">
             <div className="p-2 bg-primary/20 rounded-lg text-primary">
               <Globe className="w-5 h-5" />
@@ -264,7 +264,7 @@ export default function AdminSettingsPage() {
         {role === 'ADMIN' && (
           <>
             {/* ====== GATEWAY DE PAGAMENTO (PUSHINPAY) ====== */}
-            <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-3xl p-8 space-y-6">
+            <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 space-y-6">
               <div className="flex items-center gap-3 border-b border-slate-100 dark:border-white/5 pb-4 mb-6">
                 <div className="p-2 bg-emerald-500/20 rounded-lg text-emerald-600 dark:text-emerald-400">
                   <CreditCard className="w-5 h-5" />
@@ -357,7 +357,7 @@ export default function AdminSettingsPage() {
             </section>
 
             {/* ====== CONFIGURAÇÕES DE APIS EXTERNAS ====== */}
-            <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-3xl p-8 space-y-6">
+            <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 space-y-6">
               <div className="flex items-center gap-3 border-b border-slate-100 dark:border-white/5 pb-4 mb-6">
                 <div className="p-2 bg-blue-500/20 rounded-lg text-blue-600 dark:text-blue-400">
                   <Settings className="w-5 h-5" />
@@ -515,7 +515,7 @@ export default function AdminSettingsPage() {
 
         {/* ====== REGRAS DE CONSULTA E LGPD ====== */}
         {role === 'ADMIN' && (
-          <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-3xl p-8 space-y-6">
+          <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-100 dark:border-white/5 pb-4 mb-6">
               <div className="p-2 bg-emerald-500/20 rounded-lg text-emerald-600 dark:text-emerald-400">
                 <ShieldCheck className="w-5 h-5" />
@@ -547,7 +547,7 @@ export default function AdminSettingsPage() {
         )}
 
         {/* ====== INFORMAÇÕES LEGAIS (PARA TERMOS DE USO) ====== */}
-        <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-3xl p-8 space-y-6">
+        <section className="bg-white dark:bg-card border border-slate-200 dark:border-white/10 shadow-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 space-y-6">
           <div className="flex items-center gap-3 border-b border-slate-100 dark:border-white/5 pb-4 mb-6">
             <div className="p-2 bg-purple-500/20 rounded-lg text-purple-600 dark:text-purple-400">
               <Scale className="w-5 h-5" />

@@ -81,35 +81,35 @@ export default function VendasClient({ initialSales, initialPending }: VendasCli
   return (
     <div className="space-y-6">
       {/* Menu de Abas Premium */}
-      <div className="flex border-b border-slate-200 dark:border-white/10 pb-px gap-4">
+      <div className="flex border-b border-slate-200 dark:border-white/10 pb-px gap-2 sm:gap-4 overflow-x-auto no-scrollbar">
         <button
           onClick={() => setActiveTab('pending')}
-          className={`pb-4 px-2 text-sm font-bold flex items-center gap-2 border-b-2 transition-all relative ${
+          className={`pb-3 sm:pb-4 px-2 text-xs sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2 border-b-2 transition-all relative whitespace-nowrap ${
             activeTab === 'pending'
               ? 'border-primary text-primary'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white'
           }`}
         >
-          <Clock className="w-4 h-4" />
+          <Clock className="w-4 h-4 shrink-0" />
           Aprovações Pendentes
           {pending.length > 0 && (
-            <span className="ml-1.5 px-2 py-0.5 text-[10px] font-extrabold bg-amber-500/10 text-amber-600 dark:text-amber-500 border border-amber-500/20 rounded-full animate-pulse">
+            <span className="ml-1 sm:ml-1.5 px-2 py-0.5 text-[10px] font-extrabold bg-amber-500/10 text-amber-600 dark:text-amber-500 border border-amber-500/20 rounded-full animate-pulse">
               {pending.length}
             </span>
           )}
         </button>
         <button
           onClick={() => setActiveTab('completed')}
-          className={`pb-4 px-2 text-sm font-bold flex items-center gap-2 border-b-2 transition-all ${
+          className={`pb-3 sm:pb-4 px-2 text-xs sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2 border-b-2 transition-all relative whitespace-nowrap ${
             activeTab === 'completed'
               ? 'border-primary text-primary'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white'
           }`}
         >
-          <CheckCircle2 className="w-4 h-4" />
+          <CheckCircle2 className="w-4 h-4 shrink-0" />
           Histórico Confirmado
           {sales.length > 0 && (
-            <span className="ml-1.5 px-2 py-0.5 text-[10px] font-bold bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400 border border-slate-200 dark:border-white/5 rounded-full">
+            <span className="ml-1 sm:ml-1.5 px-2 py-0.5 text-[10px] font-bold bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400 border border-slate-200 dark:border-white/5 rounded-full">
               {sales.length}
             </span>
           )}
@@ -121,7 +121,7 @@ export default function VendasClient({ initialSales, initialPending }: VendasCli
         <div className="overflow-x-auto">
           {activeTab === 'pending' ? (
             /* TAB 1: PENDENTES */
-            <table className="w-full text-left text-sm text-slate-700 dark:text-gray-300">
+            <table className="w-full text-left text-sm text-slate-700 dark:text-gray-300 min-w-[650px]">
               <thead className="bg-slate-50 dark:bg-black/40 text-xs uppercase text-slate-500 dark:text-gray-500 font-bold tracking-wider border-b border-slate-200 dark:border-white/5">
                 <tr>
                   <th className="px-6 py-5">Cliente</th>
@@ -204,7 +204,7 @@ export default function VendasClient({ initialSales, initialPending }: VendasCli
             </table>
           ) : (
             /* TAB 2: CONFIRMADOS */
-            <table className="w-full text-left text-sm text-slate-700 dark:text-gray-300">
+            <table className="w-full text-left text-sm text-slate-700 dark:text-gray-300 min-w-[650px]">
               <thead className="bg-slate-50 dark:bg-black/40 text-xs uppercase text-slate-500 dark:text-gray-500 font-bold tracking-wider border-b border-slate-200 dark:border-white/5">
                 <tr>
                   <th className="px-6 py-5">Cliente</th>

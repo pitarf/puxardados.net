@@ -124,14 +124,17 @@ export default function TrafficClient({
       </div>
 
       {/* 3. Tabela de Origem de Canais */}
-      <div className="glass-panel rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-card shadow-sm p-6 md:p-8">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-          <BarChart3 className="w-5 h-5 text-primary" />
-          Desempenho Geral de Canais
-        </h2>
+      <div className="glass-panel rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-card shadow-sm p-4 sm:p-6 md:p-8">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-primary" />
+            Desempenho Geral de Canais
+          </h2>
+          <span className="sm:hidden text-[10px] text-slate-400">Arraste para o lado →</span>
+        </div>
         
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300">
+          <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300 min-w-[620px]">
             <thead className="text-xs uppercase bg-slate-50 dark:bg-black/20 text-slate-400 dark:text-gray-500 tracking-wider">
               <tr>
                 <th className="px-6 py-4 rounded-l-2xl">Canal / Origem</th>
@@ -184,15 +187,15 @@ export default function TrafficClient({
       </div>
 
       {/* 4. Busca, Filtros e Lista Detalhada */}
-      <div className="glass-panel rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-card shadow-sm p-6 md:p-8 space-y-6">
+      <div className="glass-panel rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-card shadow-sm p-4 sm:p-6 md:p-8 space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 dark:border-white/5 pb-6">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+          <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
             Lista Detalhada de Clientes Rastreados
           </h2>
 
-          <form onSubmit={handleSearchSubmit} className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <form onSubmit={handleSearchSubmit} className="flex flex-wrap items-center gap-2 sm:gap-3 w-full md:w-auto">
             {/* Input de Busca */}
-            <div className="relative flex-1 md:w-64">
+            <div className="relative flex-1 min-w-[200px] md:w-64">
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                 <Search className="w-4 h-4" />
               </span>
@@ -206,14 +209,14 @@ export default function TrafficClient({
             </div>
 
             {/* Filtro por Canal */}
-            <div className="relative">
+            <div className="relative flex-1 sm:flex-none">
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                 <Filter className="w-3.5 h-3.5" />
               </span>
               <select
                 value={sourceFilter}
                 onChange={(e) => handleSourceChange(e.target.value)}
-                className="pl-9 pr-8 py-2 border border-slate-200 dark:border-white/10 rounded-xl bg-slate-50 dark:bg-black/20 text-slate-950 dark:text-white outline-none focus:border-primary text-xs font-semibold appearance-none cursor-pointer"
+                className="w-full sm:w-auto pl-9 pr-8 py-2 border border-slate-200 dark:border-white/10 rounded-xl bg-slate-50 dark:bg-black/20 text-slate-950 dark:text-white outline-none focus:border-primary text-xs font-semibold appearance-none cursor-pointer"
               >
                 <option value="">Todas as Origens</option>
                 {sources.map(s => (
@@ -237,8 +240,12 @@ export default function TrafficClient({
         </div>
 
         {/* Tabela de Usuários */}
+        <div className="flex items-center justify-between sm:hidden text-[10px] text-slate-400">
+          <span>Cadastros: {initialUsers.length}</span>
+          <span>Arraste para o lado →</span>
+        </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300">
+          <table className="w-full text-left text-sm text-slate-600 dark:text-gray-300 min-w-[620px]">
             <thead className="text-xs uppercase bg-slate-50 dark:bg-black/20 text-slate-400 dark:text-gray-500 tracking-wider">
               <tr>
                 <th className="px-6 py-4 rounded-l-2xl">Usuário</th>

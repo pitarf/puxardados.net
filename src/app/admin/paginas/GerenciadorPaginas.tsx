@@ -262,8 +262,8 @@ export default function GerenciadorPaginas({ initialPages }: GerenciadorPaginasP
   return (
     <>
       {/* Barra superior de ações */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-        <div className="relative flex-grow max-w-md">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 sm:mb-8 w-full">
+        <div className="relative flex-grow w-full sm:max-w-md">
           <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
             <Search className="w-4 h-4" />
           </span>
@@ -278,17 +278,21 @@ export default function GerenciadorPaginas({ initialPages }: GerenciadorPaginasP
 
         <button
           onClick={openCreateModal}
-          className="flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-md hover:shadow-blue-500/10 active:scale-95 cursor-pointer"
+          className="flex items-center justify-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-md hover:shadow-blue-500/10 active:scale-95 cursor-pointer shrink-0"
         >
-          <Plus className="w-4.5 h-4.5" />
+          <Plus className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
           Nova Página SEO
         </button>
       </div>
 
       {/* Tabela de Páginas */}
+      <div className="flex items-center justify-between sm:hidden text-[10px] text-slate-400 mb-2">
+        <span>Total: {filteredPages.length} páginas</span>
+        <span>Arraste para o lado →</span>
+      </div>
       <div className="glass-panel rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 bg-white dark:bg-card shadow-sm hover:shadow-md transition-all">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-700 dark:text-gray-300">
+          <table className="w-full text-left text-sm text-slate-700 dark:text-gray-300 min-w-[700px]">
             <thead className="bg-slate-50 dark:bg-black/40 text-xs uppercase text-slate-500 dark:text-gray-500 font-bold border-b border-slate-200 dark:border-white/5">
               <tr>
                 <th className="px-6 py-4">Título / H1</th>

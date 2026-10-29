@@ -247,17 +247,17 @@ export default function PrecosClient({ modulos: modulosIniciais }: Props) {
                   </div>
 
                   {/* Edição e Preço (Layout Otimizado para Mobile e Desktop) */}
-                  <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t border-slate-100 dark:border-white/5 sm:border-0">
+                  <div className="flex items-center justify-between sm:justify-end gap-3 pt-2.5 sm:pt-0 border-t border-slate-100 dark:border-white/5 sm:border-0 w-full sm:w-auto shrink-0">
                     <span className="sm:hidden text-xs font-semibold text-slate-400">Preço da consulta:</span>
 
                     {editando === modulo.id ? (
-                      <div className="flex items-center gap-2">
-                        <div className="flex items-center bg-slate-100 dark:bg-black/60 border-2 border-primary rounded-xl px-2.5 py-1.5 shadow-sm">
+                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap sm:flex-nowrap justify-end">
+                        <div className="flex items-center bg-slate-100 dark:bg-black/60 border-2 border-primary rounded-xl px-2 py-1.5 shadow-sm">
                           <span className="text-slate-500 dark:text-gray-400 text-xs font-bold mr-1">R$</span>
                           <input
                             type="text"
                             inputMode="decimal"
-                            className="w-20 bg-transparent text-sm font-bold text-slate-900 dark:text-white focus:outline-none"
+                            className="w-16 sm:w-20 bg-transparent text-sm font-bold text-slate-900 dark:text-white focus:outline-none"
                             value={valores[modulo.id] ?? ''}
                             onChange={(e) => setValores((prev) => ({ ...prev, [modulo.id]: e.target.value }))}
                             onKeyDown={(e) => {
@@ -271,7 +271,7 @@ export default function PrecosClient({ modulos: modulosIniciais }: Props) {
                         <button
                           onClick={() => salvarPreco(modulo)}
                           disabled={salvando === modulo.id}
-                          className="h-9 px-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition-all disabled:opacity-50"
+                          className="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs flex items-center gap-1 shadow-sm active:scale-95 transition-all disabled:opacity-50 shrink-0"
                           title="Salvar novo preço"
                         >
                           <Save className="w-3.5 h-3.5" />
@@ -279,22 +279,22 @@ export default function PrecosClient({ modulos: modulosIniciais }: Props) {
                         </button>
                         <button
                           onClick={cancelarEdicao}
-                          className="h-9 w-9 rounded-xl bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-gray-300 flex items-center justify-center hover:bg-slate-300 dark:hover:bg-white/20 active:scale-95 transition-all"
+                          className="h-8 sm:h-9 w-8 sm:w-9 rounded-xl bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-gray-300 flex items-center justify-center hover:bg-slate-300 dark:hover:bg-white/20 active:scale-95 transition-all shrink-0"
                           title="Cancelar"
                         >
                           <X className="w-4 h-4" />
                         </button>
                       </div>
                     ) : (
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2.5 sm:gap-3">
                         <div className="text-right">
-                          <span className="text-base md:text-lg font-black text-slate-900 dark:text-white">
+                          <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
                             R$ {modulo.price.toFixed(2).replace('.', ',')}
                           </span>
                         </div>
                         <button
                           onClick={() => iniciarEdicao(modulo)}
-                          className="h-9 px-3 rounded-xl bg-slate-100 hover:bg-primary hover:text-white dark:bg-white/5 dark:hover:bg-primary dark:hover:text-white border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-300 font-bold text-xs flex items-center gap-1.5 transition-all shadow-sm active:scale-95 cursor-pointer"
+                          className="h-8 sm:h-9 px-3 rounded-xl bg-slate-100 hover:bg-primary hover:text-white dark:bg-white/5 dark:hover:bg-primary dark:hover:text-white border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-300 font-bold text-xs flex items-center gap-1.5 transition-all shadow-sm active:scale-95 cursor-pointer shrink-0"
                           title="Clique para editar este valor"
                         >
                           <Edit2 className="w-3.5 h-3.5 text-primary group-hover:text-white" />
