@@ -154,7 +154,7 @@ export default async function Home() {
 
       <main>
         {/* BLOCOS 02, 03 e 04 — HERO COM 5 CATEGORIAS, RETORNO IMEDIATO E CARD ILUSTRATIVO */}
-        <HeroSearchSection />
+        <HeroSearchSection pricings={pricings} />
 
         {/* BLOCOS 05, 06, 08, 09, 10 — INTRODUÇÃO, MODALIDADES, COMO FUNCIONA, TABELA COMPARATIVA E PREÇOS */}
         <HomeEditorialBlocks pricings={pricings} />

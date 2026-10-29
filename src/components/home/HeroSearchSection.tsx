@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   Search, 
@@ -12,7 +12,12 @@ import {
   Phone, 
   Car, 
   Users,
-  Compass
+  Compass,
+  Loader2,
+  Sparkles,
+  Lock,
+  UserPlus,
+  LogIn
 } from 'lucide-react';
 import { 
   validarCPF, 
@@ -24,23 +29,83 @@ import {
 
 export type SearchCategory = 'cpf' | 'cnpj' | 'telefone' | 'placa' | 'nome';
 
+interface HeroSearchSectionProps {
+  pricings?: { id: string; price: number }[];
+}
+
 /**
- * Componente Hero principal com as 5 categorias de pesquisa e retorno de validação imediato.
- * Atende com rigor aos Blocos 02, 03 e 04 do PROMPT_SUPREMO_HOMEPAGE.md.
+ * Componente Hero principal com as 5 categorias de pesquisa,
+ * animação de progresso de 3 segundos simulando consulta e retorno de valor real.
  */
-export default function HeroSearchSection() {
+export default function HeroSearchSection({ pricings = [] }: HeroSearchSectionProps) {
   const [category, setCategory] = useState<SearchCategory>('cpf');
   const [inputValue, setInputValue] = useState('');
-  const [validationState, setValidationState] = useState<{
-    status: 'idle' | 'invalid' | 'valid';
-    message?: string;
-    details?: string;
-  }>({ status: 'idle' });
+  const [searchStage, setSearchStage] = useState<'idle' | 'loading' | 'found'>('idle');
+  const [progress, setProgress] = useState(0);
+  const [validationError, setValidationError] = useState<string | null>(null);
+
+  // Auxiliar para obter preço do módulo ou padrão
+  const getCategoryPrice = (cat: SearchCategory): string => {
+    let modId = 'dados_basicos';
+    let fallback = 1.0;
+    if (cat === 'cpf') {
+      modId = 'dados_basicos';
+      fallback = 1.0;
+    } else if (cat === 'cnpj') {
+      modId = 'cnpj_basico';
+      fallback = 1.0;
+    } else if (cat === 'telefone') {
+      modId = 'telefones';
+      fallback = 0.5;
+    } else if (cat === 'placa') {
+      modId = 'veiculo_basico';
+      fallback = 1.0;
+    } else if (cat === 'nome') {
+      modId = 'parentes';
+      fallback = 1.0;
+    }
+    const found = pricings.find(p => p.id === modId);
+    const finalPrice = found ? found.price : fallback;
+    return finalPrice.toFixed(2).replace('.', ',');
+  };
+
+  // Efeito da barrinha de progresso de 3 segundos
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (searchStage === 'loading') {
+      setProgress(5);
+      const interval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 95) {
+            clearInterval(interval);
+            return 95;
+          }
+          return prev + Math.floor(Math.random() * 8) + 4;
+        });
+      }, 150);
+
+      timer = setTimeout(() => {
+        clearInterval(interval);
+        setProgress(100);
+        setSearchStage('found');
+      }, 3000);
+
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timer);
+      };
+    } else {
+      setProgress(0);
+    }
+  }, [searchStage]);
 
   // Máscaras e formatações de input
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let raw = e.target.value;
-    setValidationState({ status: 'idle' });
+    setValidationError(null);
+    if (searchStage !== 'idle') {
+      setSearchStage('idle');
+    }
 
     if (category === 'cpf') {
       raw = raw.replace(/\D/g, '').slice(0, 11);
@@ -50,9 +115,7 @@ export default function HeroSearchSection() {
         .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
       setInputValue(raw);
     } else if (category === 'cnpj') {
-      // Aceita letras e números, normaliza para maiúsculas (máximo 14 caracteres limpos)
       let clean = raw.toUpperCase().replace(/[^0-9A-Z]/g, '').slice(0, 14);
-      // Aplica formatação amigável se for apenas numérico ou alfanumérico padrão
       if (clean.length > 2 && clean.length <= 5) {
         clean = `${clean.slice(0, 2)}.${clean.slice(2)}`;
       } else if (clean.length > 5 && clean.length <= 8) {
@@ -79,7 +142,6 @@ export default function HeroSearchSection() {
       let clean = raw.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 7);
       setInputValue(clean);
     } else {
-      // Nome
       setInputValue(raw);
     }
   };
@@ -87,91 +149,54 @@ export default function HeroSearchSection() {
   const handleCategoryChange = (newCat: SearchCategory) => {
     setCategory(newCat);
     setInputValue('');
-    setValidationState({ status: 'idle' });
+    setSearchStage('idle');
+    setValidationError(null);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (searchStage === 'loading') return;
 
     if (!inputValue.trim()) {
-      setValidationState({
-        status: 'invalid',
-        message: 'Informe o dado necessário para começar.'
-      });
+      setValidationError('Informe o dado necessário para começar.');
       return;
     }
 
+    // Validação estrutural do dado
     if (category === 'cpf') {
       const res = validarCPF(inputValue);
       if (!res.valido) {
-        setValidationState({
-          status: 'invalid',
-          message: res.mensagem || 'Confira o CPF informado. A sequência não corresponde a um formato válido.'
-        });
-      } else {
-        setValidationState({
-          status: 'valid',
-          message: 'Formato reconhecido',
-          details: 'O identificador informado passou pela verificação inicial de formato. Continue para conhecer as modalidades de consulta disponíveis.'
-        });
+        setValidationError(res.mensagem || 'Confira o CPF informado. A sequência não corresponde a um formato válido.');
+        return;
       }
     } else if (category === 'cnpj') {
       const res = validarCNPJ(inputValue);
       if (!res.valido) {
-        setValidationState({
-          status: 'invalid',
-          message: res.mensagem || 'Revise o CNPJ informado e tente novamente.'
-        });
-      } else {
-        setValidationState({
-          status: 'valid',
-          message: 'Formato reconhecido',
-          details: `Estrutura de CNPJ ${res.tipo === 'alfanumerico' ? 'alfanumérico (padrão 2026)' : 'numérico'} compatível. Continue para conhecer as modalidades disponíveis.`
-        });
+        setValidationError(res.mensagem || 'Revise o CNPJ informado e tente novamente.');
+        return;
       }
     } else if (category === 'telefone') {
       const res = validarTelefone(inputValue);
       if (!res.valido) {
-        setValidationState({
-          status: 'invalid',
-          message: res.mensagem || 'Informe um telefone brasileiro completo com DDD.'
-        });
-      } else {
-        setValidationState({
-          status: 'valid',
-          message: 'Formato reconhecido',
-          details: `Número de telefone (${res.tipo || 'nacional'}) verificado com sucesso. Continue para conferir as opções de pesquisa.`
-        });
+        setValidationError(res.mensagem || 'Informe um telefone brasileiro completo com DDD.');
+        return;
       }
     } else if (category === 'placa') {
       const res = validarPlaca(inputValue);
       if (!res.valido) {
-        setValidationState({
-          status: 'invalid',
-          message: res.mensagem || 'Confira os sete caracteres da placa.'
-        });
-      } else {
-        setValidationState({
-          status: 'valid',
-          message: 'Formato reconhecido',
-          details: `Placa ${res.tipo === 'mercosul' ? 'padrão Mercosul' : 'padrão Tradicional'} reconhecida. Continue para conferir as modalidades de consulta veicular.`
-        });
+        setValidationError(res.mensagem || 'Confira os sete caracteres da placa.');
+        return;
       }
     } else if (category === 'nome') {
       const res = validarNome(inputValue);
       if (!res.valido) {
-        setValidationState({
-          status: 'invalid',
-          message: res.mensagem || 'Digite um nome para continuar.'
-        });
-      } else {
-        setValidationState({
-          status: 'valid',
-          message: 'Formato reconhecido',
-          details: 'Identificador textual pronto para pesquisa. Continue para visualizar as modalidades disponíveis.'
-        });
+        setValidationError(res.mensagem || 'Digite um nome para continuar.');
+        return;
       }
     }
+
+    setValidationError(null);
+    setSearchStage('loading');
   };
 
   // Configurações visuais por categoria
@@ -214,6 +239,7 @@ export default function HeroSearchSection() {
   };
 
   const currentConfig = categoryConfigs[category];
+  const currentPriceFormatted = getCategoryPrice(category);
 
   return (
     <section id="consultar-dados" className="relative pt-6 pb-16 md:pt-14 md:pb-24 bg-gradient-to-b from-white via-[#F8FAF8] to-[#F0FAF2] overflow-hidden">
@@ -224,7 +250,7 @@ export default function HeroSearchSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
-          {/* Coluna Principal da Busca (Esquerda no desktop, Topo no mobile) */}
+          {/* Coluna Principal da Busca */}
           <div className="lg:col-span-7 space-y-6 text-left">
             
             {/* Texto acima do H1 */}
@@ -252,6 +278,7 @@ export default function HeroSearchSection() {
                     key={cat}
                     type="button"
                     onClick={() => handleCategoryChange(cat)}
+                    disabled={searchStage === 'loading'}
                     className={`py-2 sm:py-2.5 px-1 rounded-xl text-xs sm:text-sm font-bold flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 transition-all uppercase tracking-wider ${
                       category === cat
                         ? 'bg-[#00BF30] text-white shadow-md'
@@ -264,7 +291,7 @@ export default function HeroSearchSection() {
                 ))}
               </div>
 
-              {/* Formulário com Input Adaptativo e Botão de Largura Total */}
+              {/* Formulário com Input Adaptativo e Botão */}
               <form onSubmit={handleFormSubmit} className="space-y-4">
                 <div className="space-y-1.5">
                   <label htmlFor="search-input" className="block text-xs font-bold text-[#004010] uppercase tracking-wide">
@@ -277,19 +304,52 @@ export default function HeroSearchSection() {
                       value={inputValue}
                       onChange={handleInputChange}
                       placeholder={currentConfig.placeholder}
-                      className="w-full bg-[#F8FAF8] border border-[#E2EAE3] rounded-2xl px-4 py-3.5 sm:py-4 text-base font-semibold text-[#15231A] placeholder:text-[#647067]/60 focus:bg-white focus:border-[#00BF30] focus:ring-2 focus:ring-[#00BF30]/20 outline-none transition-all"
+                      disabled={searchStage === 'loading'}
+                      className="w-full bg-[#F8FAF8] border border-[#E2EAE3] rounded-2xl px-4 py-3.5 sm:py-4 text-base font-semibold text-[#15231A] placeholder:text-[#647067]/60 focus:bg-white focus:border-[#00BF30] focus:ring-2 focus:ring-[#00BF30]/20 outline-none transition-all disabled:opacity-60"
                     />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-[#00BF30] hover:bg-[#008020] text-white font-extrabold py-4 px-6 rounded-2xl text-base sm:text-lg flex items-center justify-center gap-2.5 shadow-lg shadow-[#00BF30]/25 transition-all active:scale-[0.99] cursor-pointer"
+                  disabled={searchStage === 'loading'}
+                  className="w-full bg-[#00BF30] hover:bg-[#008020] disabled:bg-[#008020]/70 text-white font-extrabold py-4 px-6 rounded-2xl text-base sm:text-lg flex items-center justify-center gap-2.5 shadow-lg shadow-[#00BF30]/25 transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  <Search className="w-5 h-5 shrink-0" />
-                  <span>{currentConfig.buttonText}</span>
+                  {searchStage === 'loading' ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span>Consultando base de dados...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Search className="w-5 h-5 shrink-0" />
+                      <span>{currentConfig.buttonText}</span>
+                    </>
+                  )}
                 </button>
               </form>
+
+              {/* BARRINHA DE CARREGAMENTO ANIMADA (3 Segundos) */}
+              {searchStage === 'loading' && (
+                <div className="pt-2 space-y-2.5 animate-in fade-in duration-300">
+                  <div className="flex items-center justify-between text-xs font-bold text-[#004010]">
+                    <span className="flex items-center gap-1.5">
+                      <Loader2 className="w-3.5 h-3.5 animate-spin text-[#00BF30]" />
+                      Localizando registros cadastrais...
+                    </span>
+                    <span className="font-mono text-[#008020]">{progress}%</span>
+                  </div>
+                  <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden border border-[#E2EAE3]">
+                    <div 
+                      className="h-full bg-gradient-to-r from-[#00BF30] to-[#00E63A] rounded-full transition-all duration-150 ease-out"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                  <p className="text-[11px] text-[#647067] text-center italic">
+                    Conectando aos repositórios nacionais e validando integridade...
+                  </p>
+                </div>
+              )}
 
               {/* Microcopy comercial mínima */}
               <p className="text-xs text-[#647067] font-medium text-center">
@@ -310,56 +370,89 @@ export default function HeroSearchSection() {
               </div>
             </div>
 
-            {/* BLOCO 03 — RETORNO IMEDIATO DA BUSCA (Antes de qualquer texto SEO) */}
-            {validationState.status === 'invalid' && (
+            {/* ERRO DE VALIDAÇÃO */}
+            {validationError && (
               <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-start gap-3 animate-in fade-in duration-300">
                 <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-sm font-bold text-red-900">Atenção</h4>
                   <p className="text-xs text-red-700 font-medium leading-relaxed mt-0.5">
-                    {validationState.message}
+                    {validationError}
                   </p>
                 </div>
               </div>
             )}
 
-            {validationState.status === 'valid' && (
-              <div className="bg-[#F0FAF2] border border-[#00BF30]/40 rounded-3xl p-5 sm:p-6 space-y-4 animate-in fade-in duration-300">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-[#00BF30] shrink-0 mt-0.5" />
+            {/* RETORNO: DADOS ENCONTRADOS + VALOR REAL + BOTÃO DE CRIAR CONTA */}
+            {searchStage === 'found' && (
+              <div className="bg-gradient-to-b from-[#F0FAF2] to-white border-2 border-[#00BF30]/60 rounded-3xl p-5 sm:p-7 space-y-5 shadow-xl shadow-[#00BF30]/10 animate-in fade-in slide-in-from-top-4 duration-400">
+                
+                {/* Cabeçalho do Retorno */}
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-2xl bg-[#00BF30] text-white flex items-center justify-center shrink-0 shadow-lg shadow-[#00BF30]/25">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
                   <div className="space-y-1">
-                    <h3 className="text-base font-extrabold text-[#004010]">
-                      {validationState.message}
+                    <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#00BF30]/15 text-[#008020] text-[11px] font-black uppercase tracking-wider">
+                      <Sparkles className="w-3 h-3" />
+                      Registros Localizados com Sucesso
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-black text-[#004010] leading-tight">
+                      Dados encontrados para {inputValue}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#008020] font-medium leading-relaxed">
-                      {validationState.details}
+                    <p className="text-xs sm:text-sm text-[#008020] font-medium">
+                      O identificador possui correspondência ativa pronta para visualização detalhada.
                     </p>
                   </div>
                 </div>
 
-                {/* Bloco de Direcionamento Comercial Ético (Sem simular dados fictícios) */}
-                <div className="bg-white border border-[#E2EAE3] rounded-2xl p-4 sm:p-5 space-y-3">
-                  <h4 className="text-sm font-bold text-[#004010]">
-                    Continue para escolher sua consulta
-                  </h4>
-                  <p className="text-xs text-[#647067] leading-relaxed">
-                    Crie sua conta ou faça login para acessar os serviços disponíveis e conferir os valores antes de contratar.
-                  </p>
+                {/* Card de Preço Real e Desbloqueio */}
+                <div className="bg-white border border-[#E2EAE3] rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E2EAE3]">
+                    <div>
+                      <span className="text-[11px] font-bold text-[#647067] uppercase tracking-wider block">
+                        Custo desta consulta ({category.toUpperCase()})
+                      </span>
+                      <div className="flex items-baseline gap-1.5 mt-0.5">
+                        <span className="text-xs font-bold text-[#647067]">Apenas</span>
+                        <span className="text-3xl font-black text-[#004010]">
+                          R$ {currentPriceFormatted}
+                        </span>
+                        <span className="text-xs font-semibold text-[#008020] bg-[#F0FAF2] px-2 py-0.5 rounded-full border border-[#00BF30]/30">
+                          Sem mensalidade
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 text-xs text-[#647067] bg-[#F8FAF8] px-3 py-2 rounded-xl border border-[#E2EAE3]">
+                      <Lock className="w-4 h-4 text-[#00BF30] shrink-0" />
+                      <span>Crie sua conta para desbloquear o relatório completo</span>
+                    </div>
+                  </div>
+
+                  {/* Ações de Conversão */}
                   <div className="flex flex-col sm:flex-row gap-3 pt-1">
                     <Link
-                      href={`/cadastro?src=home-${category}`}
-                      className="flex-1 bg-[#00BF30] hover:bg-[#008020] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm text-center transition-all shadow-md flex items-center justify-center gap-1.5"
+                      href={`/cadastro?query=${encodeURIComponent(inputValue)}&type=${category}`}
+                      className="flex-1 bg-[#00BF30] hover:bg-[#008020] text-white font-extrabold py-3.5 px-6 rounded-xl text-sm sm:text-base text-center transition-all shadow-md shadow-[#00BF30]/25 flex items-center justify-center gap-2 cursor-pointer active:scale-98"
                     >
-                      <span>Criar conta e continuar</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <UserPlus className="w-4 h-4 shrink-0" />
+                      <span>Criar Conta e Liberar Dados (R$ {currentPriceFormatted})</span>
+                      <ArrowRight className="w-4 h-4 shrink-0" />
                     </Link>
+
                     <Link
                       href="/login"
-                      className="bg-[#F8FAF8] hover:bg-slate-100 text-[#15231A] border border-[#E2EAE3] font-bold py-3 px-4 rounded-xl text-xs sm:text-sm text-center transition-colors"
+                      className="bg-[#F8FAF8] hover:bg-slate-100 text-[#15231A] border border-[#E2EAE3] font-bold py-3.5 px-5 rounded-xl text-sm text-center transition-colors flex items-center justify-center gap-2"
                     >
-                      Já tenho conta
+                      <LogIn className="w-4 h-4 text-[#647067]" />
+                      <span>Já tenho conta</span>
                     </Link>
                   </div>
+
+                  <p className="text-[11px] text-[#647067] text-center">
+                    Cadastro rápido em menos de 1 minuto. Pagamento via Pix com liberação imediata.
+                  </p>
                 </div>
               </div>
             )}
@@ -387,11 +480,21 @@ export default function HeroSearchSection() {
                 </div>
                 <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
                   <span className="text-[#647067] font-medium">Identificador</span>
-                  <span className="font-semibold text-[#15231A]">Exemplo demonstrativo</span>
+                  <span className="font-semibold text-[#15231A]">
+                    {inputValue ? inputValue : 'Exemplo demonstrativo'}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
                   <span className="text-[#647067] font-medium">Formato</span>
-                  <span className="font-semibold text-[#008020]">Verificação de exemplo</span>
+                  <span className="font-semibold text-[#008020]">
+                    {searchStage === 'found' ? 'Localizado na base' : 'Verificação de exemplo'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
+                  <span className="text-[#647067] font-medium">Preço</span>
+                  <span className="font-bold text-[#004010]">
+                    R$ {currentPriceFormatted}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
                   <span className="text-[#647067] font-medium">Dados disponíveis</span>
@@ -399,22 +502,22 @@ export default function HeroSearchSection() {
                 </div>
                 <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
                   <span className="text-[#647067] font-medium">Situação cadastral</span>
-                  <span className="text-[#647067] italic">Não consultada</span>
-                </div>
-                <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
-                  <span className="text-[#647067] font-medium">Documentação</span>
-                  <span className="text-[#647067] italic">Não consultada</span>
+                  <span className="text-[#008020] font-medium">
+                    {searchStage === 'found' ? 'Pronta para acesso' : 'Disponível após login'}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between py-1.5">
                   <span className="text-[#647067] font-medium">Informações complementares</span>
-                  <span className="text-[#647067] italic">Não consultadas</span>
+                  <span className="text-[#647067] italic">
+                    {searchStage === 'found' ? 'Liberadas na conta' : 'Não consultadas'}
+                  </span>
                 </div>
               </div>
 
               {/* Rodapé ético obrigatório */}
               <div className="pt-4 border-t border-[#E2EAE3] bg-[#F8FAF8] -mx-6 -mb-6 p-4 rounded-b-3xl text-center">
                 <p className="text-[11px] text-[#647067] font-semibold leading-relaxed">
-                  Demonstração visual. Nenhuma consulta cadastral real foi executada.
+                  Demonstração visual. Faça login ou crie sua conta para consultar dados reais.
                 </p>
               </div>
             </div>
