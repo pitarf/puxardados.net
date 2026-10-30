@@ -1,5 +1,11 @@
 # Roadmap de Desenvolvimento - PuxarDados (Splits de Entrega)
 
+## TAREFAS RECENTES (✅ CONCLUÍDAS)
+- [x] **Enriquecimento Completo de Filiação e Dados Pessoais na Consulta por CPF (R$ 0,36):**
+  - Exibição universal do bloco `Dados_Pessoais` mesmo em seleções exclusivas de módulos complementares.
+  - Implementação de fallback inteligente e automático via Pesquisa Avançada V2 (`filterNaturalPerson` -> `processingIds` -> `viewSearch`) quando a filiação materna vier nula no retorno inicial do CPF.
+  - Preenchimento transparente de Nome da Mãe, Nome do Pai, RG e Parentescos sem custos adicionais.
+
 ## SPLIT 4: Reestruturação Suprema da Homepage - SEO, Mobile First e Conversão (✅ 100% CONCLUÍDO)
 *Este split implementa integralmente os 44 blocos e diretrizes do PROMPT SUPREMO DEFINITIVO.*
 - [x] **Primeira Dobra de Conversão:**

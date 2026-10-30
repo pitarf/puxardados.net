@@ -2,6 +2,13 @@
 
 Todas as mudanças notáveis para este projeto serão documentadas neste arquivo.
 
+## [1.2.1] - 2026-10-30
+### Aprimorado & Corrigido
+- **Enriquecimento Completo de Filiação e Dados Pessoais na Consulta por CPF (R$ 0,36):**
+  - **Exibição Universal de Dados Pessoais:** O bloco de `Dados_Pessoais` (Nome completo, CPF, RG, Sexo, Data de Nascimento, Idade, Signo, Nome da Mãe, Nome do Pai e Situação Cadastral) agora é SEMPRE retornado e exibido em qualquer consulta por CPF, mesmo se o usuário selecionar apenas módulos complementares (ex: telefones ou endereços), evitando que o relatório oculte a identificação da pessoa consultada.
+  - **Enriquecimento Inteligente de Filiação via Pesquisa Avançada V2:** Quando o endpoint de CPF retorna a filiação materna como `null` ou não informada pela base federal inicial, o sistema aciona de forma transparente a Pesquisa Avançada V2 (`filterNaturalPerson` -> `processingIds` -> `viewSearch`) buscando pelo nome completo retornado para resgatar o Nome da Mãe, Nome do Pai e RG sem máscaras.
+  - **Resiliência e Performance:** O enriquecimento opera com tolerância a falhas não-bloqueante e polling rápido de até 4 tentativas (máx 8s), garantindo entrega íntegra e mantendo a apuração correta de custos na plataforma.
+
 ## [1.2.0] - 2026-10-27
 ### Adicionado & Aprimorado (Reestruturação Completa da Homepage - SEO & Conversão Mobile)
 - **Implementação Integral do PROMPT SUPREMO DEFINITIVO (44 Seções):**
