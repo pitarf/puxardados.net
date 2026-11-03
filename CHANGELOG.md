@@ -2,6 +2,14 @@
 
 Todas as mudanças notáveis para este projeto serão documentadas neste arquivo.
 
+## [1.2.2] - 2026-11-03
+### Adicionado
+- **Exportação Profissional em PDF (Dossiê Cadastral & Jurídico):**
+  - **Módulo Vetorial Dedicado (`pdf-report.ts`):** Criado utilitário completo com design executivo para exportação e impressão de dossiês cadastrais e judiciais sem necessidade de binários pesados de backend.
+  - **Identidade Visual e Layout A4:** Cabeçalho timbrado com o nome do sistema `PuxarDados`, protocolo único rastreável, data/hora de emissão, tag de documento confidencial, grid estruturado de campos, tabelas de endereços, listas de contatos e aviso legal de conformidade com a LGPD (Lei 13.709/2018).
+  - **Botões de Ação de Alta Conversão:** Inclusão do botão "Exportar PDF" com ícone de download vetorial em `DataViewer.tsx` e `ProcessosJudiciaisViewer.tsx`, abrangendo automaticamente o Histórico de Consultas, resultados de CPF, Nome, CNPJ, Veículos, Endereços e Processos Judiciais.
+  - **Geração de Exemplo Real Validado:** Validação e geração de arquivo PDF exemplo A4 de alta fidelidade e screenshot de visualização via Playwright/Edge Headless.
+
 ## [1.2.1] - 2026-10-30
 ### Aprimorado & Corrigido
 - **Enriquecimento Completo de Filiação e Dados Pessoais na Consulta por CPF (R$ 0,36):**

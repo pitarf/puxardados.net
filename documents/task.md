@@ -1,6 +1,11 @@
 # Roadmap de Desenvolvimento - PuxarDados (Splits de Entrega)
 
 ## TAREFAS RECENTES (✅ CONCLUÍDAS)
+- [x] **Exportação Profissional em PDF (Dossiê Cadastral & Jurídico):**
+  - Criação do gerador vetorial de alta definição `src/utils/pdf-report.ts` com cabeçalho timbrado `PuxarDados`, protocolo único, layout A4 `@media print` e conformidade com LGPD.
+  - Adição do botão "Exportar PDF" nos componentes visuais centrais: `DataViewer.tsx` e `ProcessosJudiciaisViewer.tsx`.
+  - Disponibilização automática da exportação em todas as páginas de resultado e histórico (`/dashboard`, `/dashboard/processos`, `/dashboard/historico`, `/dashboard/empresas`, `/dashboard/veiculos`, etc.).
+  - Geração e validação de exemplo real de PDF (`dossie_exemplo_real_puxardados.pdf`) e imagem de preview (`dossie_exemplo_real_preview.png`).
 - [x] **Enriquecimento Completo de Filiação e Dados Pessoais na Consulta por CPF (R$ 0,36):**
   - Exibição universal do bloco `Dados_Pessoais` mesmo em seleções exclusivas de módulos complementares.
   - Implementação de fallback inteligente e automático via Pesquisa Avançada V2 (`filterNaturalPerson` -> `processingIds` -> `viewSearch`) quando a filiação materna vier nula no retorno inicial do CPF.
