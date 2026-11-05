@@ -2,6 +2,14 @@
 
 Todas as mudanças notáveis para este projeto serão documentadas neste arquivo.
 
+## [1.2.3] - 2026-11-05
+### Corrigido
+- **Persistência Definitiva do Aceite dos Termos no Banco de Dados (`hasAcceptedTerms`):**
+  - **Causa Raiz Identificada:** O modal de termos dependia exclusivamente do `localStorage` do navegador. Se o usuário limpava o cache, mudava de navegador/dispositivo ou utilizava modo anônimo, o modal reaparecia a cada novo login.
+  - **Persistência no Schema do Prisma:** Mapeamento explícito das colunas `hasAcceptedTerms` e `termsAcceptedAt` no modelo `User`.
+  - **Fluxo de Cadastro e Atualização:** Usuários novos já são criados com `hasAcceptedTerms: true`. Usuários existentes que clicam em "Prosseguir" têm o status gravado de forma permanente no banco de dados via server action `acceptTerms()`.
+  - **Eliminação de Reexibições Indesejadas:** O componente `TermsModal` e a página `/dashboard` agora conferem o campo `hasAcceptedTerms` vindo do perfil do usuário no servidor; uma vez aceito, o modal nunca mais é renderizado.
+
 ## [1.2.2] - 2026-11-03
 ### Adicionado
 - **Exportação Profissional em PDF (Dossiê Cadastral & Jurídico):**

@@ -147,6 +147,8 @@ export async function register(prevState: any, formData: FormData) {
         passwordHash,
         balance: 0.0, // Saldo inicial zerado
         hasSeenPromoPopup: false, // Força a exibição do popup logo após o cadastro
+        hasAcceptedTerms: true, // Já aceitou obrigatoriamente os termos no formulário de cadastro
+        termsAcceptedAt: new Date(),
         trafficSource,
         referralCode,
         referredById,

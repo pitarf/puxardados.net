@@ -2,44 +2,61 @@
 
 import { useState, useEffect } from 'react';
 import { ShieldCheck, ChevronRight } from 'lucide-react';
+import { acceptTerms } from '@/app/actions/perfil';
 
 interface TermsModalProps {
   userId?: string;
+  hasAcceptedTerms?: boolean;
   onAccept?: () => void;
 }
 
 /**
  * Modal de Ciência, Responsabilidade e Uso Legítimo
- * Exibido logo após a criação da conta/primeiro acesso, antes de qualquer outro pop-up.
+ * Exibido apenas caso o usuário ainda não tenha aceito os termos no banco de dados.
  */
-export default function TermsModal({ userId, onAccept }: TermsModalProps) {
+export default function TermsModal({ userId, hasAcceptedTerms, onAccept }: TermsModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Se ainda não temos userId/identificador, aguarda carregar para não salvar em chave genérica temporária
+    // 1. Se o banco de dados já confirma que os termos foram aceitos, nunca abre
+    if (hasAcceptedTerms) {
+      setIsOpen(false);
+      return;
+    }
+
+    // 2. Se ainda não temos userId/identificador, aguarda carregar
     if (!userId) return;
 
-    // Verifica no localStorage se o usuário já confirmou a ciência dos termos (por ID ou genérico prévio)
+    // 3. Fallback no localStorage caso o aceite tenha acabado de ocorrer na sessão atual
     const specificKey = `terms_accepted_${userId}`;
     const genericKey = 'terms_accepted_generic';
-    const accepted = localStorage.getItem(specificKey) || localStorage.getItem(genericKey);
+    const acceptedLocal = localStorage.getItem(specificKey) || localStorage.getItem(genericKey);
 
-    if (!accepted) {
+    if (!acceptedLocal) {
       setIsOpen(true);
     }
-  }, [userId]);
+  }, [userId, hasAcceptedTerms]);
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
+    // Grava localmente de forma imediata
     if (userId) {
       localStorage.setItem(`terms_accepted_${userId}`, 'true');
     }
-    // Grava também a chave genérica e cookies como redundância caso o usuário limpe cache específico
     localStorage.setItem('terms_accepted_generic', 'true');
     try {
       document.cookie = `terms_accepted=true; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
     } catch (_) {}
 
+    // Fecha a modal instantaneamente para não travar a experiência do usuário
     setIsOpen(false);
+
+    // Persiste no banco de dados no registro do usuário
+    try {
+      await acceptTerms();
+    } catch (e) {
+      console.error('Falha ao registrar aceite no banco:', e);
+    }
+
     if (onAccept) {
       onAccept();
     }

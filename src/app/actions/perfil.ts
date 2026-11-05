@@ -11,8 +11,42 @@ export async function getUserProfile() {
 
   return prisma.user.findUnique({
     where: { id: session.userId },
-    select: { id: true, name: true, email: true, createdAt: true, balance: true, role: true, whatsapp: true, hasSeenPromoPopup: true }
+    select: { 
+      id: true, 
+      name: true, 
+      email: true, 
+      createdAt: true, 
+      balance: true, 
+      role: true, 
+      whatsapp: true, 
+      hasSeenPromoPopup: true,
+      hasAcceptedTerms: true
+    }
   });
+}
+
+/**
+ * Salva a ciência e aceite dos Termos de Uso e LGPD do usuário diretamente no banco de dados.
+ */
+export async function acceptTerms() {
+  const session = await verifySession();
+  if (!session) return { error: 'Não autenticado' };
+
+  try {
+    await prisma.user.update({
+      where: { id: session.userId },
+      data: {
+        hasAcceptedTerms: true,
+        termsAcceptedAt: new Date()
+      }
+    });
+
+    revalidatePath('/dashboard');
+    return { success: true };
+  } catch (err) {
+    console.error('Erro ao registrar aceite de termos:', err);
+    return { error: 'Erro ao registrar aceite de termos' };
+  }
 }
 
 export async function updateProfile(data: { name: string }) {

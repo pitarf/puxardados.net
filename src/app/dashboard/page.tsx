@@ -596,7 +596,10 @@ export default function DashboardPage() {
 
       {userProfile && (
         <>
-          <TermsModal userId={userProfile.id || userProfile.email} />
+          <TermsModal 
+            userId={userProfile.id || userProfile.email} 
+            hasAcceptedTerms={userProfile.hasAcceptedTerms}
+          />
           <PromoModal 
             hasSeenPopup={userProfile.hasSeenPromoPopup} 
             userWhatsapp={userProfile.whatsapp} 
