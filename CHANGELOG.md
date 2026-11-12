@@ -2,6 +2,15 @@
 
 Todas as mudanças notáveis para este projeto serão documentadas neste arquivo.
 
+## [1.2.4] - 2026-11-11
+### Aprimorado
+- **Substituição de 'Desconhecido' por 'Resultado após confirmar e consultar':**
+  - Criação do utilitário `src/utils/candidate-helpers.ts` centralizando a detecção de valores desconhecidos e formatação de localização, filiação materna, data de nascimento e CPF mascarado.
+  - Atualização dos cards de homônimos e prévia de candidatos nas rotas `/dashboard`, `/dashboard/enderecos` e `/dashboard/processos`.
+  - Destaque visual dos campos a serem desbloqueados com a cor primária da plataforma, incentivando a conversão e confirmação de consulta.
+- **Regularização de Aceite de Termos Legais em Contas Existentes:**
+  - Migração e consolidação do status `hasAcceptedTerms = true` para todas as contas de usuários criadas anteriormente na base de produção, cessando qualquer repetição do pop-up ao logar.
+
 ## [1.2.3] - 2026-11-05
 ### Corrigido
 - **Persistência Definitiva do Aceite dos Termos no Banco de Dados (`hasAcceptedTerms`):**

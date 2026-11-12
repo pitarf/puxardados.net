@@ -1,11 +1,12 @@
 # Roadmap de Desenvolvimento - PuxarDados (Splits de Entrega)
 
 ## TAREFAS RECENTES (✅ CONCLUÍDAS)
-- [x] **Persistência Definitiva do Aceite dos Termos no Banco de Dados (`hasAcceptedTerms`):**
-  - Mapeamento de `hasAcceptedTerms` e `termsAcceptedAt` no schema do Prisma e geração do client.
-  - Criação da Server Action `acceptTerms()` em `perfil.ts` para persistência segura no PostgreSQL.
-  - Atualização do cadastro (`register`) para nascer com `hasAcceptedTerms: true`.
-  - Passagem de `hasAcceptedTerms` para o componente `TermsModal` no Dashboard, impedindo novas exibições quando o aceite já estiver registrado no banco.
+- [x] **Substituição de 'Desconhecido' por 'Resultado após confirmar e consultar':**
+  - Implementado helper `candidate-helpers.ts` para tratar dados de retorno provisório em consultas homônimas.
+  - Atualizadas as prévias de candidatos em `/dashboard`, `/dashboard/enderecos` e `/dashboard/processos`.
+- [x] **Persistência e Consolidação do Aceite de Termos Legais (`hasAcceptedTerms`):**
+  - Mapeamento e persistência no banco de dados para evitar reexibições do pop-up.
+  - Atualização dos registros existentes na base de dados para garantir que usuários ativos não visualizem mais o modal a cada login.
 - [x] **Exportação Profissional em PDF (Dossiê Cadastral & Jurídico):**
   - Criação do gerador vetorial de alta definição `src/utils/pdf-report.ts` com cabeçalho timbrado `PuxarDados`, protocolo único, layout A4 `@media print` e conformidade com LGPD.
   - Adição do botão "Exportar PDF" nos componentes visuais centrais: `DataViewer.tsx` e `ProcessosJudiciaisViewer.tsx`.
