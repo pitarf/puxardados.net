@@ -26,63 +26,67 @@ export function isFieldUnknown(val?: string | null): boolean {
 }
 
 /**
- * Formata a localização do candidato (Cidade - UF) de forma comercialmente atrativa
+ * Formata o nome do candidato na prévia:
+ * - Se a busca NÃO foi feita pelo nome (ex: busca por telefone, email, etc.), o nome completo é protegido
+ *   e só deve ser liberado após confirmar e consultar/pagar.
+ * - Se a busca já foi pelo próprio nome que o usuário digitou, mantém o nome da busca.
  */
-export function formatCandidateLocation(city?: string | null, state?: string | null): { text: string; isPlaceholder: boolean } {
-  const cityUnknown = isFieldUnknown(city);
-  const stateUnknown = isFieldUnknown(state);
-
-  if (cityUnknown && stateUnknown) {
+export function formatCandidateName(name?: string | null, searchType?: string): { text: string; isPlaceholder: boolean } {
+  if (searchType && searchType !== 'nome') {
     return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
   }
-
-  if (cityUnknown) {
-    return { text: `${MENSAGEM_LIBERACAO} (${state})`, isPlaceholder: true };
+  if (isFieldUnknown(name)) {
+    return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
   }
-
-  if (stateUnknown) {
-    return { text: city!, isPlaceholder: false };
-  }
-
-  return { text: `${city} - ${state}`, isPlaceholder: false };
+  return { text: name!, isPlaceholder: false };
 }
 
 /**
- * Formata a filiação (Nome da Mãe) do candidato
- */
-export function formatCandidateMother(motherName?: string | null): { text: string; isPlaceholder: boolean } {
-  if (isFieldUnknown(motherName)) {
-    return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
-  }
-  return { text: motherName!.toUpperCase(), isPlaceholder: false };
-}
-
-/**
- * Formata a data de nascimento do candidato
- */
-export function formatCandidateBirth(dateOfBirth?: string | null): { text: string; isPlaceholder: boolean } {
-  if (isFieldUnknown(dateOfBirth)) {
-    return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
-  }
-  const dateStr = dateOfBirth!;
-  if (dateStr.includes('/') || dateStr.includes('*')) {
-    return { text: dateStr, isPlaceholder: false };
-  }
-  try {
-    const d = new Date(dateStr);
-    if (isNaN(d.getTime())) return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
-    return { text: d.toLocaleDateString('pt-BR', { timeZone: 'UTC' }), isPlaceholder: false };
-  } catch {
-    return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
-  }
-}
-
-/**
- * Formata o CPF/CNPJ do candidato para a exibição de prévia
+ * Formata o CPF do candidato para exibir estritamente apenas 3 dígitos visíveis (ex: ***.796.***-**)
+ * garantindo que o usuário identifique que o registro existe sem expor dados em excesso antes do pagamento.
  */
 export function formatCandidateTaxId(taxId?: string | null): { text: string; isPlaceholder: boolean } {
   if (isFieldUnknown(taxId)) {
     return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
   }
-  return { text: taxId!, isPlaceholder: false };
+  const s = String(taxId).trim();
+
+  // Procura blocos de 3 dígitos na string mascarada ou normal
+  const match3 = s.match(/\d{3}/);
+  if (match3) {
+    return { text: `***.${match3[0]}.***-**`, isPlaceholder: false };
+  }
+
+  const digits = s.replace(/\D/g, '');
+  if (digits.length >= 6) {
+    return { text: `***.${digits.slice(3, 6)}.***-**`, isPlaceholder: false };
+  } else if (digits.length >= 3) {
+    return { text: `***.${digits.slice(0, 3)}.***-**`, isPlaceholder: false };
+  }
+
+  return { text: '***.***.***-**', isPlaceholder: false };
+}
+
+/**
+ * Filiação materna na prévia:
+ * Ocultada antes da confirmação paga, liberada após confirmar e consultar.
+ */
+export function formatCandidateMother(motherName?: string | null): { text: string; isPlaceholder: boolean } {
+  return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
+}
+
+/**
+ * Data de nascimento na prévia:
+ * Ocultada antes da confirmação paga, liberada após confirmar e consultar.
+ */
+export function formatCandidateBirth(dateOfBirth?: string | null): { text: string; isPlaceholder: boolean } {
+  return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
+}
+
+/**
+ * Localização na prévia:
+ * Ocultada antes da confirmação paga, liberada após confirmar e consultar.
+ */
+export function formatCandidateLocation(city?: string | null, state?: string | null): { text: string; isPlaceholder: boolean } {
+  return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
 }
