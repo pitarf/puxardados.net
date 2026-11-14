@@ -1,7 +1,7 @@
 /**
  * Utilitários para formatação e exibição dos cards de prévia de candidatos
- * Substitui termos negativos como "Desconhecido" ou "Não informado" por chamadas convidativas
- * orientando o usuário a prosseguir com a confirmação da consulta.
+ * Blindagem de dados pré-consulta: oculta nomes reais em buscas de telefone e oculta
+ * dados sensíveis (mãe, nascimento, localização) até a confirmação e pagamento da consulta.
  */
 
 export const MENSAGEM_LIBERACAO = 'Resultado após confirmar e consultar';
@@ -26,24 +26,47 @@ export function isFieldUnknown(val?: string | null): boolean {
 }
 
 /**
- * Formata o nome do candidato na prévia:
- * - Se a busca NÃO foi feita pelo nome (ex: busca por telefone, email, etc.), o nome completo é protegido
- *   e só deve ser liberado após confirmar e consultar/pagar.
- * - Se a busca já foi pelo próprio nome que o usuário digitou, mantém o nome da busca.
+ * Formata o título principal do card de candidato.
+ * Em buscas por telefone, oculta o nome real para impedir que o usuário obtenha o dado gratuitamente.
  */
-export function formatCandidateName(name?: string | null, searchType?: string): { text: string; isPlaceholder: boolean } {
-  if (searchType && searchType !== 'nome') {
-    return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
+export function formatCandidateTitle(name: string | undefined | null, isPhone: boolean, index: number = 0, total: number = 1): string {
+  if (isPhone) {
+    return total > 1 ? `Titular Vinculado (Perfil ${index + 1})` : 'Titular do Telefone';
   }
-  if (isFieldUnknown(name)) {
-    return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
+  if (!name || isFieldUnknown(name)) {
+    return total > 1 ? `Perfil Correspondente #${index + 1}` : 'Perfil Correspondente';
   }
-  return { text: name!, isPlaceholder: false };
+  return name;
 }
 
 /**
- * Formata o CPF do candidato para exibir estritamente apenas 3 dígitos visíveis (ex: ***.796.***-**)
- * garantindo que o usuário identifique que o registro existe sem expor dados em excesso antes do pagamento.
+ * Formata a localização do candidato na prévia.
+ * Blindada para exibir a mensagem convidativa até a efetivação da consulta.
+ */
+export function formatCandidateLocation(city?: string | null, state?: string | null): { text: string; isPlaceholder: boolean } {
+  return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
+}
+
+/**
+ * Formata a filiação (Nome da Mãe) do candidato na prévia.
+ * Blindada para nunca exibir o nome ou sobrenome da mãe antes do pagamento.
+ */
+export function formatCandidateMother(motherName?: string | null): { text: string; isPlaceholder: boolean } {
+  return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
+}
+
+/**
+ * Data de nascimento na prévia.
+ * Blindada para nunca exibir o ano ou data de nascimento antes do pagamento.
+ */
+export function formatCandidateBirth(dateOfBirth?: string | null): { text: string; isPlaceholder: boolean } {
+  return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
+}
+
+/**
+ * Formata o CPF do candidato para a exibição de prévia.
+ * Exibe rigorosamente apenas 3 dígitos visíveis (ex: ***.796.***-**)
+ * permitindo ao cliente identificar o perfil sem liberar dados além do necessário antes de pagar.
  */
 export function formatCandidateTaxId(taxId?: string | null): { text: string; isPlaceholder: boolean } {
   if (isFieldUnknown(taxId)) {
@@ -51,10 +74,10 @@ export function formatCandidateTaxId(taxId?: string | null): { text: string; isP
   }
   const s = String(taxId).trim();
 
-  // Procura blocos de 3 dígitos na string mascarada ou normal
-  const match3 = s.match(/\d{3}/);
-  if (match3) {
-    return { text: `***.${match3[0]}.***-**`, isPlaceholder: false };
+  // Encontra blocos de 3 dígitos na string (caso venha mascarada como ***.796.990-**)
+  const matches = s.match(/\d{3}/g);
+  if (matches && matches.length > 0) {
+    return { text: `***.${matches[0]}.***-**`, isPlaceholder: false };
   }
 
   const digits = s.replace(/\D/g, '');
@@ -65,28 +88,4 @@ export function formatCandidateTaxId(taxId?: string | null): { text: string; isP
   }
 
   return { text: '***.***.***-**', isPlaceholder: false };
-}
-
-/**
- * Filiação materna na prévia:
- * Ocultada antes da confirmação paga, liberada após confirmar e consultar.
- */
-export function formatCandidateMother(motherName?: string | null): { text: string; isPlaceholder: boolean } {
-  return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
-}
-
-/**
- * Data de nascimento na prévia:
- * Ocultada antes da confirmação paga, liberada após confirmar e consultar.
- */
-export function formatCandidateBirth(dateOfBirth?: string | null): { text: string; isPlaceholder: boolean } {
-  return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
-}
-
-/**
- * Localização na prévia:
- * Ocultada antes da confirmação paga, liberada após confirmar e consultar.
- */
-export function formatCandidateLocation(city?: string | null, state?: string | null): { text: string; isPlaceholder: boolean } {
-  return { text: MENSAGEM_LIBERACAO, isPlaceholder: true };
 }
